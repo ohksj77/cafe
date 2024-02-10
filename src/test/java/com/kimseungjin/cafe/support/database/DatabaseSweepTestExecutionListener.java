@@ -18,7 +18,7 @@ public class DatabaseSweepTestExecutionListener extends AbstractTestExecutionLis
     private List<String> getTruncateQueries(final JdbcTemplate jdbcTemplate) {
         return jdbcTemplate.queryForList(
                 "SELECT Concat('TRUNCATE TABLE ', TABLE_NAME, ';') AS q FROM"
-                    + " INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PUBLIC'",
+                        + " INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PUBLIC'",
                 String.class);
     }
 
