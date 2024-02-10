@@ -3,11 +3,11 @@
 
 ### 프로젝트 세팅
 - [x] 프로젝트 생성
-- [ ] Gradle 설정
+- [x] Gradle 설정
     - [x] Jacoco
     - [x] Flyway
     - [x] Jib
-    - [ ] 필요 의존성 추가
+    - [x] 필요 의존성 추가
 - [ ] application.yml 설정
 - [ ] Github Actions
     - [ ] CI & Jib Build
