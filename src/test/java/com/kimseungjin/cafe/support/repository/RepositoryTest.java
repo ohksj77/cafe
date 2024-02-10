@@ -1,23 +1,13 @@
 package com.kimseungjin.cafe.support.repository;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import com.kimseungjin.cafe.support.database.ResetDatabase;
+import com.kimseungjin.cafe.config.encrypt.EncryptConfig;
+import com.kimseungjin.cafe.support.database.DatabaseSweepTest;
+import com.kimseungjin.cafe.support.database.FlywayDisableTest;
 import com.kimseungjin.cafe.utils.EncryptUtils;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 
+@Import({EncryptConfig.class, EncryptUtils.class})
 @EnableDataJpa
-public abstract class RepositoryTest extends ResetDatabase {
-
-    @MockBean private EncryptUtils encryptUtils;
-
-    @BeforeEach
-    void setup() {
-        resetDatabase();
-        when(encryptUtils.encrypt(any(String.class))).thenReturn("encrypt");
-        when(encryptUtils.decrypt(any(String.class))).thenReturn("encrypt");
-    }
-}
+@DatabaseSweepTest
+public abstract class RepositoryTest extends FlywayDisableTest {}

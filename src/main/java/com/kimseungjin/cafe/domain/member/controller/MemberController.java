@@ -5,6 +5,8 @@ import com.kimseungjin.cafe.domain.member.service.MemberService;
 import com.kimseungjin.cafe.global.dto.BaseResponse;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 
+import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,7 @@ public class MemberController implements MemberApi {
 
     @PostMapping("signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public BaseResponse<IdResponse<UUID>> signup(@RequestBody final SignupRequest signupRequest) {
+    public BaseResponse<IdResponse<UUID>> signup(@RequestBody @Valid final SignupRequest signupRequest) {
         return BaseResponse.successOf(HttpStatus.CREATED, memberService.signup(signupRequest));
     }
 }

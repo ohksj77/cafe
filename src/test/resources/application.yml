@@ -25,3 +25,14 @@ spring:
 
   flyway:
     enabled: false
+
+encrypt:
+  key: testtesttesttesttesttesttesttesttesttesttesttesttesttesttest
+  salt: 1112223334445556
+
+token:
+  secret-key: testtesttesttesttesttesttesttesttesttesttesttesttesttesttest
+
+springdoc:
+  swagger-ui:
+    version: v1.0.0
