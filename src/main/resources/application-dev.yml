@@ -31,3 +31,17 @@ spring:
     redis:
       host: localhost
       port: 6379
+
+token:
+  secret-key: aslalijhsdfgbakujshdfgaksujdhfg238475rghwegfajhsdfgjasdhfg82347asggasgadsfgagasdghjmhdev
+
+encrypt:
+  key: 1111asidfuhaierswufhaoiwurgh3189047oajsdufh923954823ytjsgnaosdkfhj4444dev
+  salt: 7234567893123451
+
+springdoc:
+  swagger-ui:
+    version: v1.0.0
+  packages-to-scan: com.kimseungjin.cafe
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
