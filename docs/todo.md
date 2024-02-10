@@ -3,16 +3,16 @@
 
 ### 프로젝트 세팅
 - [x] 프로젝트 생성
-- [ ] Gradle 설정
-    - [ ] Jacoco
-    - [ ] Flyway
-    - [ ] Jib
-    - [ ] 필요 의존성 추가
-- [ ] application.yml 설정
-- [ ] Github Actions
-    - [ ] CI & Jib Build
-    - [ ] 코드 포맷팅
-- [ ] Docker
+- [x] Gradle 설정
+    - [x] Jacoco
+    - [x] Flyway
+    - [x] Jib
+    - [x] 필요 의존성 추가
+- [x] application.yml 설정
+- [x] Github Actions
+    - [x] CI & Jib Build
+    - [x] 코드 포맷팅
+- [x] Docker
 
 ### 설계
 - [ ] DB 설계
