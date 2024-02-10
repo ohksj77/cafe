@@ -1,6 +1,9 @@
 package com.kimseungjin.cafe.domain.member.entity;
 
+import com.kimseungjin.cafe.config.converter.EncryptConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
 
 import lombok.*;
@@ -15,6 +18,7 @@ public class LoginInfo {
     @Column(unique = true, nullable = false)
     private String phoneNumber;
 
+    @Convert(converter = EncryptConverter.class)
     @Column(nullable = false)
     private String password;
 }
