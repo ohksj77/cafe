@@ -1,12 +1,12 @@
 version: '3.8'
 
-# 백엔드를 직접 빌드하여 실행하는 docker-compose 파일입니다.
-# 실행 커맨드: docker-compose up -d
+# 백엔드 서버를 이미 jib로 빌드해둔 이미지로 실행하는 docker-compose 파일입니다.
+# 실행 커맨드: docker-compose -f docker-compose.jib.yml up -d
 
 services:
   cafe-backend:
     container_name: cafe-backend
-    build: ./
+    image: ohksj77/cafe-backend:latest
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
