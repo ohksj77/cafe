@@ -17,6 +17,6 @@ public class FlywayConfig {
 
     @Bean(initMethod = "migrate")
     public Flyway flyway() {
-        return Flyway.configure().dataSource(dataSource).locations(LOCATION).load();
+        return Flyway.configure().dataSource(dataSource).locations(LOCATION).baselineOnMigrate(false).load();
     }
 }
