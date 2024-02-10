@@ -6,6 +6,7 @@ create table member
     deleted      bit          not null comment 'Soft-delete indicator',
     created_at   datetime(6),
     updated_at   datetime(6),
+    deleted_at   datetime(6),
     id           BINARY(16) not null,
     password     varchar(255) not null,
     phone_number varchar(255) not null,
@@ -15,12 +16,13 @@ create table member
 
 create table product
 (
-    deleted      bit          not null comment 'Soft-delete indicator',
+    deleted         bit not null comment 'Soft-delete indicator',
     cost            integer,
     expiration_date date,
     price           integer,
     created_at      datetime(6),
     updated_at      datetime(6),
+    deleted_at      datetime(6),
     id              BINARY(16) not null,
     owner_id        BINARY(16) not null,
     barcode         varchar(255),

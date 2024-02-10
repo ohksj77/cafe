@@ -1,6 +1,6 @@
 package com.kimseungjin.cafe.domain.member.mapper;
 
-import com.kimseungjin.cafe.domain.member.dto.SignInRequest;
+import com.kimseungjin.cafe.domain.member.dto.SignupRequest;
 import com.kimseungjin.cafe.domain.member.entity.Member;
 
 import org.mapstruct.Mapper;
@@ -12,5 +12,5 @@ public interface MemberMapper {
 
     @Mapping(target = "phoneNumber", source = "phoneNumber")
     @Mapping(target = "password", source = "password")
-    Member toEntity(final SignInRequest signinRequest);
+    Member toEntity(final SignupRequest signupRequest);
 }

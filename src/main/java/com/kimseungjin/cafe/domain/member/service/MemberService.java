@@ -1,6 +1,6 @@
 package com.kimseungjin.cafe.domain.member.service;
 
-import com.kimseungjin.cafe.domain.member.dto.SignInRequest;
+import com.kimseungjin.cafe.domain.member.dto.SignupRequest;
 import com.kimseungjin.cafe.domain.member.entity.Member;
 import com.kimseungjin.cafe.domain.member.exception.MemberAlreadyExistsException;
 import com.kimseungjin.cafe.domain.member.mapper.MemberMapper;
@@ -20,15 +20,15 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
 
-    public IdResponse<UUID> signIn(final SignInRequest signInRequest) {
-        validatePhoneNumber(signInRequest);
-        final Member member = memberRepository.save(memberMapper.toEntity(signInRequest));
+    public IdResponse<UUID> signup(final SignupRequest signupRequest) {
+        validatePhoneNumber(signupRequest);
+        final Member member = memberRepository.save(memberMapper.toEntity(signupRequest));
 
         return new IdResponse<>(member.getId());
     }
 
-    private void validatePhoneNumber(final SignInRequest signinRequest) {
-        if (isPhoneNumberExists(signinRequest.getPhoneNumber())) {
+    private void validatePhoneNumber(final SignupRequest signupRequest) {
+        if (isPhoneNumberExists(signupRequest.getPhoneNumber())) {
             throw new MemberAlreadyExistsException();
         }
     }
