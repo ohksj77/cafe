@@ -12,9 +12,14 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - cafe-database
-      - cafe-redis
+      cafe-database:
+        condition: service_healthy
+      cafe-redis:
+        condition: service_healthy
     restart: always
+    networks:
+      - app-tier
+    tty: true
 
   cafe-database:
     image: mysql:5.7
@@ -32,6 +37,11 @@ services:
         MYSQL_PASSWORD: 1234
     networks:
       - app-tier
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u $$MYSQL_USER --password=$$MYSQL_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     tty: true
 
   cafe-redis:
@@ -44,6 +54,11 @@ services:
       - redis_data:/data
     networks:
       - app-tier
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     tty: true
 
 networks:
