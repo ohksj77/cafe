@@ -1,6 +1,7 @@
 package com.kimseungjin.cafe.global.audit;
 
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
 
 import java.util.Optional;
@@ -16,7 +17,11 @@ public class AuditListener {
 
     @PreUpdate
     public void setUpdatedAt(final Auditable auditable) {
-        final BaseTime baseTime = auditable.getBaseTime();
-        baseTime.update();
+        auditable.getBaseTime().update();
+    }
+
+    @PreRemove
+    public void setDeletedAt(final Auditable auditable) {
+        auditable.getBaseTime().delete();
     }
 }
