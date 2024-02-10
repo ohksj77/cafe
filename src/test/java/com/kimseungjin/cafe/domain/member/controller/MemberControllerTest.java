@@ -49,10 +49,14 @@ class MemberControllerTest extends ControllerTest {
             @DisplayName("회원이 저장되고 pk가 반환된다")
             @Test
             void saveMember() throws Exception {
-                final ResultActions perform = mockMvc.perform(
-                        post("/members/signup")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(toRequestBody(SignupRequestFixture.SUCCESS1.toRequest())));
+                final ResultActions perform =
+                        mockMvc.perform(
+                                post("/members/signup")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(
+                                                toRequestBody(
+                                                        SignupRequestFixture.SUCCESS1
+                                                                .toRequest())));
 
                 perform.andExpect(status().isCreated())
                         .andExpect(jsonPath("$.data.id").value(idResponse.getId().toString()));
@@ -66,10 +70,14 @@ class MemberControllerTest extends ControllerTest {
             @DisplayName("400 에러가 발생한다")
             @Test
             void signupValidationException() throws Exception {
-                final ResultActions perform = mockMvc.perform(
-                        post("/members/signup")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(toRequestBody(SignupRequestFixture.PHONE_NUMBER_FAILURE1.toRequest())));
+                final ResultActions perform =
+                        mockMvc.perform(
+                                post("/members/signup")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(
+                                                toRequestBody(
+                                                        SignupRequestFixture.PHONE_NUMBER_FAILURE1
+                                                                .toRequest())));
 
                 perform.andExpect(status().isBadRequest());
             }
@@ -82,10 +90,14 @@ class MemberControllerTest extends ControllerTest {
             @DisplayName("400 에러가 발생한다")
             @Test
             void signupValidationException() throws Exception {
-                final ResultActions perform = mockMvc.perform(
-                        post("/members/signup")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(toRequestBody(SignupRequestFixture.PASSWORD_FAILURE.toRequest())));
+                final ResultActions perform =
+                        mockMvc.perform(
+                                post("/members/signup")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(
+                                                toRequestBody(
+                                                        SignupRequestFixture.PASSWORD_FAILURE
+                                                                .toRequest())));
 
                 perform.andExpect(status().isBadRequest());
             }

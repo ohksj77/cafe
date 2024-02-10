@@ -36,7 +36,10 @@ class MemberServiceTest extends LoginTest {
                 final IdResponse<UUID> idResponse = memberService.signup(signupRequest);
 
                 assertThat(idResponse.getId()).isNotNull();
-                assertThat(memberRepository.existsByLoginInfoPhoneNumber(signupRequest.getPhoneNumber())).isTrue();
+                assertThat(
+                                memberRepository.existsByLoginInfoPhoneNumber(
+                                        signupRequest.getPhoneNumber()))
+                        .isTrue();
             }
         }
 
@@ -50,7 +53,6 @@ class MemberServiceTest extends LoginTest {
             void setup() {
                 memberService.signup(signupRequest);
             }
-
 
             @DisplayName("PhoneNumberAlreadyExistsException이 발생한다")
             @Test

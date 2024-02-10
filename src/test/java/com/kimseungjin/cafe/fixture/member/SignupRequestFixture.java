@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum SignupRequestFixture {
-
     SUCCESS1("010-0000-0000", "password"),
     SUCCESS2("010-0000-0001", "password"),
     PHONE_NUMBER_FAILURE1("010-0-0", "password"),

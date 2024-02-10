@@ -50,8 +50,7 @@ class MemberRepositoryTest extends RepositoryTest {
             @DisplayName("false를 반환한다")
             @Test
             void returnFalse() {
-                final boolean isExists =
-                        memberRepository.existsByLoginInfoPhoneNumber(phoneNumber);
+                final boolean isExists = memberRepository.existsByLoginInfoPhoneNumber(phoneNumber);
                 assertThat(isExists).isFalse();
             }
         }

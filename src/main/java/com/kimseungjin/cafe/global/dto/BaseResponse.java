@@ -19,7 +19,8 @@ public class BaseResponse<T> {
         return new BaseResponse<>(httpStatus.value(), httpStatus.getReasonPhrase(), data);
     }
 
-    public static BaseResponse<Void> errorOf(final HttpStatus httpStatus, final Exception exception) {
+    public static BaseResponse<Void> errorOf(
+            final HttpStatus httpStatus, final Exception exception) {
         return new BaseResponse<>(httpStatus.value(), exception.getMessage(), null);
     }
 }

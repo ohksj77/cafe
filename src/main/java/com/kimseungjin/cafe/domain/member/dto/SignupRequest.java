@@ -15,6 +15,5 @@ public class SignupRequest {
     @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$")
     private String phoneNumber;
 
-    @NotBlank
-    private String password;
+    @NotBlank private String password;
 }

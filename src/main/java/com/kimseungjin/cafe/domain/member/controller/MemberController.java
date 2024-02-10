@@ -23,7 +23,8 @@ public class MemberController implements MemberApi {
 
     @PostMapping("signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public BaseResponse<IdResponse<UUID>> signup(@RequestBody @Valid final SignupRequest signupRequest) {
+    public BaseResponse<IdResponse<UUID>> signup(
+            @RequestBody @Valid final SignupRequest signupRequest) {
         return BaseResponse.successOf(HttpStatus.CREATED, memberService.signup(signupRequest));
     }
 }

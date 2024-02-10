@@ -1,6 +1,5 @@
 package com.kimseungjin.cafe.support.service;
 
-
 import com.kimseungjin.cafe.domain.member.entity.Member;
 import com.kimseungjin.cafe.domain.member.repository.MemberRepository;
 import com.kimseungjin.cafe.fixture.member.MemberEntityFixture;
