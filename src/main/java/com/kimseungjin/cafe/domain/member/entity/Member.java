@@ -24,8 +24,7 @@ public class Member implements Auditable {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
-    @Embedded
-    private LoginInfo loginInfo;
+    @Embedded private LoginInfo loginInfo;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

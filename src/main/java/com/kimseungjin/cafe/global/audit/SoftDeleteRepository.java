@@ -11,6 +11,8 @@ public interface SoftDeleteRepository<T, ID> extends JpaRepository<T, ID> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE #{#entityName} e SET e.deleted = true WHERE e = :entity", nativeQuery = true)
+    @Query(
+            value = "UPDATE #{#entityName} e SET e.deleted = true WHERE e = :entity",
+            nativeQuery = true)
     void softDelete(final T entity);
 }
