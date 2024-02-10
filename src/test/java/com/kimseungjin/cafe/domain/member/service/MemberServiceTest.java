@@ -3,10 +3,10 @@ package com.kimseungjin.cafe.domain.member.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.kimseungjin.cafe.domain.member.dto.SignupRequest;
+import com.kimseungjin.cafe.domain.member.dto.CredentialRequest;
 import com.kimseungjin.cafe.domain.member.exception.PhoneNumberAlreadyExistsException;
 import com.kimseungjin.cafe.domain.member.repository.MemberRepository;
-import com.kimseungjin.cafe.fixture.member.SignupRequestFixture;
+import com.kimseungjin.cafe.fixture.member.CredentialRequestFixture;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 import com.kimseungjin.cafe.support.service.LoginTest;
 
@@ -28,17 +28,17 @@ class MemberServiceTest extends LoginTest {
         @Nested
         class WhenRequestIsValid {
 
-            private final SignupRequest signupRequest = SignupRequestFixture.SUCCESS1.toRequest();
+            private final CredentialRequest credentialRequest = CredentialRequestFixture.SUCCESS1.toRequest();
 
             @DisplayName("회원이 저장되고 pk가 반환된다")
             @Test
             void saveMember() {
-                final IdResponse<UUID> idResponse = memberService.signup(signupRequest);
+                final IdResponse<UUID> idResponse = memberService.signup(credentialRequest);
 
                 assertThat(idResponse.getId()).isNotNull();
                 assertThat(
                                 memberRepository.existsByLoginInfoPhoneNumber(
-                                        signupRequest.getPhoneNumber()))
+                                        credentialRequest.getPhoneNumber()))
                         .isTrue();
             }
         }
@@ -47,17 +47,17 @@ class MemberServiceTest extends LoginTest {
         @Nested
         class WhenPhoneNumberIsInvalid {
 
-            private final SignupRequest signupRequest = SignupRequestFixture.SUCCESS2.toRequest();
+            private final CredentialRequest credentialRequest = CredentialRequestFixture.SUCCESS2.toRequest();
 
             @BeforeEach
             void setup() {
-                memberService.signup(signupRequest);
+                memberService.signup(credentialRequest);
             }
 
             @DisplayName("PhoneNumberAlreadyExistsException이 발생한다")
             @Test
             void throwPhoneNumberAlreadyExistsException() {
-                assertThatThrownBy(() -> memberService.signup(signupRequest))
+                assertThatThrownBy(() -> memberService.signup(credentialRequest))
                         .isInstanceOf(PhoneNumberAlreadyExistsException.class);
             }
         }

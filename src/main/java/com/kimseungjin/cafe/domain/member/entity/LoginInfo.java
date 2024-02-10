@@ -21,4 +21,8 @@ public class LoginInfo {
     @Convert(converter = EncryptConverter.class)
     @Column(nullable = false)
     private String password;
+
+    public boolean isPasswordEquals(final String password) {
+        return this.password.equals(password);
+    }
 }

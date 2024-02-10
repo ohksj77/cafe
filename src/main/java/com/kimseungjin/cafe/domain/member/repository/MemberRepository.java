@@ -11,4 +11,6 @@ public interface MemberRepository {
     <S extends Member> S save(final S member);
 
     boolean existsByLoginInfoPhoneNumber(final String phoneNumber);
+
+    Optional<Member> findByLoginInfoPhoneNumber(final String phoneNumber);
 }

@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://cafe-database:3306/cafe?serverTimezone=Asia/Seoul
     username: admin
-    password: 1234
+    password: 1234 # 원래는 그냥 올리면 안되지만 테스트를 위해 그대로 커밋합니다.
 
   jpa:
     show-sql: true
@@ -33,7 +33,7 @@ spring:
       port: 6379
 
 token:
-  secret-key: aslalijhsdfgbakujshdfgaksujdhfg238475rghwegfajhsdfgjasdhfg82347asggasgadsfgagasdghjmh
+  secret-key: aslalijhsdfgbakujshdfgaksujdhfg238475rghwegfajhsdfgjasdhfg82347asggasgadsfgagasdghjmhdev43214321asdfasdfqqqqrtfffdbv245tdfzg1
 
 encrypt:
   key: asidfuhaierswufhaoiwurgh3189047oajsdufh923954823ytjsgnaosdkfhjaoig
