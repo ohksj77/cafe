@@ -8,7 +8,7 @@
     - [x] Flyway
     - [x] Jib
     - [x] 필요 의존성 추가
-- [ ] application.yml 설정
+- [x] application.yml 설정
 - [ ] Github Actions
     - [ ] CI & Jib Build
     - [ ] 코드 포맷팅
