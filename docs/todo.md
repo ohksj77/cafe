@@ -4,7 +4,7 @@
 ### 프로젝트 세팅
 - [x] 프로젝트 생성
 - [ ] Gradle 설정
-    - [ ] Jacoco
+    - [x] Jacoco
     - [ ] Flyway
     - [ ] Jib
     - [ ] 필요 의존성 추가
