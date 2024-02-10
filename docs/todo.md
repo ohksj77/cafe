@@ -9,9 +9,9 @@
     - [x] Jib
     - [x] 필요 의존성 추가
 - [x] application.yml 설정
-- [ ] Github Actions
-    - [ ] CI & Jib Build
-    - [ ] 코드 포맷팅
+- [x] Github Actions
+    - [x] CI & Jib Build
+    - [x] 코드 포맷팅
 - [ ] Docker
 
 ### 설계
