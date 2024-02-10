@@ -5,8 +5,8 @@
 - [x] 프로젝트 생성
 - [ ] Gradle 설정
     - [x] Jacoco
-    - [ ] Flyway
-    - [ ] Jib
+    - [x] Flyway
+    - [x] Jib
     - [ ] 필요 의존성 추가
 - [ ] application.yml 설정
 - [ ] Github Actions
