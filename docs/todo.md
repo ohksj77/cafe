@@ -12,7 +12,7 @@
 - [x] Github Actions
     - [x] CI & Jib Build
     - [x] 코드 포맷팅
-- [ ] Docker
+- [x] Docker
 
 ### 설계
 - [ ] DB 설계

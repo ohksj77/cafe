@@ -1,0 +1,55 @@
+version: '3.8'
+
+# 백엔드 서버를 포함한 docker-compose 파일입니다.
+# 실행 커맨드: docker-compose up -d
+
+services:
+  cafe-backend:
+    container_name: cafe-backend
+    image: ohksj77/cafe-backend:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - 8080:8080
+    depends_on:
+      - cafe-database
+      - cafe-redis
+    restart: always
+
+  cafe-database:
+    image: mysql:5.7
+    platform: linux/amd64 # Mac이 아닌 경우 에러시 주석처리 해주세요.
+    container_name: cafe-database
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment: # 보안을 위해 그대로 커밋하면 안되지만, 테스트를 위해 그대로 커밋합니다.
+        MYSQL_ROOT_PASSWORD: 1234
+        MYSQL_DATABASE: cafe
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: 1234
+    networks:
+      - app-tier
+    tty: true
+
+  cafe-redis:
+    image: redis:latest
+    container_name: cafe-redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-tier
+    tty: true
+
+networks:
+  app-tier:
+    driver: bridge
+
+volumes:
+  mysql_data: null
+  redis_data: null

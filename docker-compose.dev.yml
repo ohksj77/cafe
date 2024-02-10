@@ -1,0 +1,27 @@
+version: '3.8'
+
+# 백엔드를 제외한 컨테이너의 실행을 위한 개발용 docker-compose 파일입니다.
+# 실행 커맨드: docker-compose -f docker-compose.dev.yml up -d
+
+services:
+  cafe-database:
+    image: mysql:5.7
+    platform: linux/amd64 # Mac이 아닌 경우 에러시 주석처리 해주세요.
+    container_name: cafe-database
+    restart: always
+    ports:
+      - 3306:3306
+    environment: # 보안을 위해 그대로 커밋하면 안되지만, 테스트를 위해 그대로 커밋합니다.
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: cafe
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 1234
+    tty: true
+
+  cafe-redis:
+    image: redis:latest
+    container_name: cafe-redis
+    restart: always
+    ports:
+      - 6379:6379
+    tty: true
