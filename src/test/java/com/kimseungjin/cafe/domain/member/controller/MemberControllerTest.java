@@ -175,8 +175,7 @@ class MemberControllerTest extends ControllerTest {
             void logout() throws Exception {
                 final ResultActions perform =
                         mockMvc.perform(
-                                post("/members/logout")
-                                        .header("Authorization", "Bearer token"));
+                                post("/members/logout").header("Authorization", "Bearer token"));
 
                 perform.andExpect(status().isNoContent());
             }
