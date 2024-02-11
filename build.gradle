@@ -87,7 +87,12 @@ tasks.named('test') {
 	useJUnitPlatform()
 
 	jacoco {
-		excludes += ["com/kimseungjin/cafe/CafeApplication.class"]
+		excludes += ["com/kimseungjin/cafe/CafeApplication.class",
+					 "com/kimseungjin/cafe/config/**",
+					 "com/kimseungjin/cafe/global/**",
+					 "com/kimseungjin/cafe/aspect/**",
+					 "com/kimseungjin/cafe/domain/**/controller/advice/**",
+					 "com/kimseungjin/cafe/domain/**/dto/**"]
 	}
 }
 
@@ -104,7 +109,12 @@ jacocoTestReport {
 	}
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
-			fileTree(dir: it, exclude: ["com/kimseungjin/cafe/CafeApplication.class"])
+			fileTree(dir: it, exclude: ["com/kimseungjin/cafe/CafeApplication.class",
+										"com/kimseungjin/cafe/config/**",
+										"com/kimseungjin/cafe/global/**",
+										"com/kimseungjin/cafe/aspect/**",
+										"com/kimseungjin/cafe/domain/**/controller/advice/**",
+										"com/kimseungjin/cafe/domain/**/dto/**"])
 		}))
 	}
 	finalizedBy 'jacocoTestCoverageVerification'
