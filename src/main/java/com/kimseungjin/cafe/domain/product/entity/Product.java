@@ -32,16 +32,20 @@ public class Product implements Auditable {
 
     private String category;
 
+    @Column(nullable = false)
     private Integer price;
 
     private Integer cost;
 
+    @Column(nullable = false)
     private String name;
 
     private String description;
 
+    @Column(nullable = false)
     private String barcode;
 
+    @Column(nullable = false)
     private LocalDate expirationDate;
 
     @Enumerated(EnumType.STRING)
@@ -61,6 +65,25 @@ public class Product implements Auditable {
             final LocalDate expirationDate,
             final ProduceSize productSize) {
         this.ownerId = ownerId;
+        this.category = category;
+        this.price = price;
+        this.cost = cost;
+        this.name = name;
+        this.description = description;
+        this.barcode = barcode;
+        this.expirationDate = expirationDate;
+        this.productSize = productSize;
+    }
+
+    public void update(
+            final String category,
+            final Integer price,
+            final Integer cost,
+            final String name,
+            final String description,
+            final String barcode,
+            final LocalDate expirationDate,
+            final ProduceSize productSize) {
         this.category = category;
         this.price = price;
         this.cost = cost;
