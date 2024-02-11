@@ -1,6 +1,7 @@
 package com.kimseungjin.cafe.domain.product.controller;
 
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
+import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.service.ProductService;
 import com.kimseungjin.cafe.global.dto.BaseResponse;
 import com.kimseungjin.cafe.global.dto.IdResponse;
@@ -9,9 +10,11 @@ import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -44,5 +47,12 @@ public class ProductController implements ProductApi {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeProduct(@PathVariable("id") final UUID id) {
         productService.removeProduct(id);
+    }
+
+    @Override
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<List<ProductResponse>> getProducts(final Pageable pageable) {
+        return BaseResponse.successOf(HttpStatus.OK, productService.getProducts(pageable));
     }
 }

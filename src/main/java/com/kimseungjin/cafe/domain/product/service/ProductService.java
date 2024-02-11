@@ -2,6 +2,7 @@ package com.kimseungjin.cafe.domain.product.service;
 
 import com.kimseungjin.cafe.domain.member.service.AuthService;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
+import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.entity.Product;
 import com.kimseungjin.cafe.domain.product.mapper.ProductMapper;
 import com.kimseungjin.cafe.domain.product.repository.ProductRepository;
@@ -10,9 +11,11 @@ import com.kimseungjin.cafe.global.exception.EntityNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -58,5 +61,12 @@ public class ProductService {
         product.validateOwner(authService.getLoginUserId());
 
         productRepository.removeById(id);
+    }
+
+    public List<ProductResponse> getProducts(final Pageable pageable) {
+        final UUID ownerId = authService.getLoginUserId();
+        final List<Product> products = productRepository.findAllByOwnerId(ownerId, pageable);
+
+        return productMapper.toResponses(products);
     }
 }
