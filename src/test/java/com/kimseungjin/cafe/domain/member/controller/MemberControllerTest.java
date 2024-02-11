@@ -77,7 +77,8 @@ class MemberControllerTest extends ControllerTest {
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .content(
                                                 toRequestBody(
-                                                        CredentialRequestFixture.PHONE_NUMBER_FAILURE1
+                                                        CredentialRequestFixture
+                                                                .PHONE_NUMBER_FAILURE1
                                                                 .toRequest())));
 
                 perform.andExpect(status().isBadRequest());
@@ -132,8 +133,7 @@ class MemberControllerTest extends ControllerTest {
                         mockMvc.perform(
                                 post("/members/login")
                                         .contentType(MediaType.APPLICATION_JSON)
-                                        .content(
-                                                toRequestBody(request)));
+                                        .content(toRequestBody(request)));
 
                 perform.andExpect(status().isOk())
                         .andExpect(jsonPath("$.data.accessToken").isString())
@@ -145,7 +145,8 @@ class MemberControllerTest extends ControllerTest {
         @Nested
         class WhenRequestIsInvalid {
 
-            private final CredentialRequest request = CredentialRequestFixture.PASSWORD_FAILURE.toRequest();
+            private final CredentialRequest request =
+                    CredentialRequestFixture.PASSWORD_FAILURE.toRequest();
 
             @DisplayName("400 에러가 발생한다")
             @Test

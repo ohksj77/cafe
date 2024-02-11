@@ -27,5 +27,6 @@ public class CredentialRequest {
             nullable = false,
             requiredMode = Schema.RequiredMode.REQUIRED,
             example = "1234")
-    @NotBlank private String password;
+    @NotBlank
+    private String password;
 }

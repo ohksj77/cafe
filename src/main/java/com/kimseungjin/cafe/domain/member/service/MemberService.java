@@ -48,7 +48,8 @@ public class MemberService {
     }
 
     private Member getMemberByPhoneNumber(final CredentialRequest credentialRequest) {
-        return memberRepository.findByLoginInfoPhoneNumber(credentialRequest.getPhoneNumber())
+        return memberRepository
+                .findByLoginInfoPhoneNumber(credentialRequest.getPhoneNumber())
                 .orElseThrow(LoginFailedException::new);
     }
 }

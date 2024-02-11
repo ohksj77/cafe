@@ -96,8 +96,10 @@ class MemberServiceTest extends LoginTest {
         @Nested
         class WhenPhoneNumberNotExists {
 
-            private final CredentialRequest notExistsPhoneNumber
-                    = new CredentialRequest(credentialRequest.getPhoneNumber() + "dummy", credentialRequest.getPassword());
+            private final CredentialRequest notExistsPhoneNumber =
+                    new CredentialRequest(
+                            credentialRequest.getPhoneNumber() + "dummy",
+                            credentialRequest.getPassword());
 
             @DisplayName("LoginFailedException이 발생한다")
             @Test
@@ -111,8 +113,10 @@ class MemberServiceTest extends LoginTest {
         @Nested
         class WhenPasswordIsInvalid {
 
-            private final CredentialRequest wrongPassword
-                    = new CredentialRequest(credentialRequest.getPhoneNumber(), credentialRequest.getPassword() + "dummy");
+            private final CredentialRequest wrongPassword =
+                    new CredentialRequest(
+                            credentialRequest.getPhoneNumber(),
+                            credentialRequest.getPassword() + "dummy");
 
             @DisplayName("LoginFailedException이 발생한다")
             @Test

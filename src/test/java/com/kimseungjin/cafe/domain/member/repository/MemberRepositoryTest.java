@@ -60,39 +60,40 @@ class MemberRepositoryTest extends RepositoryTest {
     @Nested
     class FindByLoginInfoPhoneNumber {
 
-            @DisplayName("전화번호가 존재하면")
-            @Nested
-            class WhenPhoneNumberExists {
+        @DisplayName("전화번호가 존재하면")
+        @Nested
+        class WhenPhoneNumberExists {
 
-                private final Member member = MemberEntityFixture.MEMBER1.toEntity();
+            private final Member member = MemberEntityFixture.MEMBER1.toEntity();
 
-                @BeforeEach
-                void setup() {
-                    memberRepository.save(member);
-                }
-
-                @DisplayName("해당 회원을 반환한다")
-                @Test
-                void returnMember() {
-                    final Member foundMember =
-                            memberRepository.findByLoginInfoPhoneNumber(
-                                    member.getLoginInfo().getPhoneNumber()).orElseThrow();
-                    assertThat(foundMember).isEqualTo(member);
-                }
+            @BeforeEach
+            void setup() {
+                memberRepository.save(member);
             }
 
-            @DisplayName("전화번호가 존재하지 않으면")
-            @Nested
-            class WhenPhoneNumberDoesNotExists {
-
-                private final String phoneNumber = "111-1111-1111";
-
-                @DisplayName("빈 Optional을 반환한다")
-                @Test
-                void returnEmptyOptional() {
-                    final var foundMember = memberRepository.findByLoginInfoPhoneNumber(phoneNumber);
-                    assertThat(foundMember).isEmpty();
-                }
+            @DisplayName("해당 회원을 반환한다")
+            @Test
+            void returnMember() {
+                final Member foundMember =
+                        memberRepository
+                                .findByLoginInfoPhoneNumber(member.getLoginInfo().getPhoneNumber())
+                                .orElseThrow();
+                assertThat(foundMember).isEqualTo(member);
             }
+        }
+
+        @DisplayName("전화번호가 존재하지 않으면")
+        @Nested
+        class WhenPhoneNumberDoesNotExists {
+
+            private final String phoneNumber = "111-1111-1111";
+
+            @DisplayName("빈 Optional을 반환한다")
+            @Test
+            void returnEmptyOptional() {
+                final var foundMember = memberRepository.findByLoginInfoPhoneNumber(phoneNumber);
+                assertThat(foundMember).isEmpty();
+            }
+        }
     }
 }
