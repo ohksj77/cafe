@@ -5,6 +5,7 @@ import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
 import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.entity.Product;
+import com.kimseungjin.cafe.utils.HangulUtils;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -16,7 +17,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 import java.util.UUID;
 
-@Mapper(componentModel = ComponentModel.SPRING)
+@Mapper(componentModel = ComponentModel.SPRING, uses = HangulUtils.class)
 public interface ProductMapper {
 
     @Mapping(target = "ownerId", source = "ownerId")
@@ -28,6 +29,7 @@ public interface ProductMapper {
     @Mapping(target = "barcode", source = "productRequest.barcode")
     @Mapping(target = "expirationDate", source = "productRequest.expirationDate")
     @Mapping(target = "productSize", source = "productRequest.productSize")
+    @Mapping(target = "chosung", expression = "java(HangulUtils.decompose(productRequest.getName()))")
     Product toEntity(final ProductRequest productRequest, final UUID ownerId);
 
     @Mapping(target = "products", source = "products.content", qualifiedByName = "toResponses")
@@ -54,5 +56,5 @@ public interface ProductMapper {
     @Mapping(target = "barcode", source = "product.barcode")
     @Mapping(target = "expirationDate", source = "product.expirationDate")
     @Mapping(target = "productSize", source = "product.productSize")
-    ProductDetailResponse toProductDetailResponse(Product product);
+    ProductDetailResponse toProductDetailResponse(final Product product);
 }

@@ -3,6 +3,7 @@ package com.kimseungjin.cafe.domain.product.controller;
 import com.kimseungjin.cafe.domain.product.dto.ProductDetailResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
+import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.global.dto.BaseResponse;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Product")
@@ -89,4 +91,16 @@ public interface ProductApi {
             description = "인증 정보가 잘못되었습니다.",
             content = @Content(schema = @Schema(implementation = BaseResponse.class)))
     BaseResponse<ProductDetailResponse> getProductDetail(final UUID id);
+
+    @Operation(summary = "상품 검색 API", description = "상품을 검색합니다.")
+    @ApiResponse(responseCode = "200", description = "요청 성공")
+    @ApiResponse(
+            responseCode = "400",
+            description = "요청 데이터가 잘못되었습니다.",
+            content = @Content(schema = @Schema(implementation = BaseResponse.class)))
+    @ApiResponse(
+            responseCode = "401",
+            description = "인증 정보가 잘못되었습니다.",
+            content = @Content(schema = @Schema(implementation = BaseResponse.class)))
+    BaseResponse<List<ProductResponse>> searchProducts(final String query);
 }

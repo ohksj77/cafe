@@ -20,7 +20,7 @@ import java.util.UUID;
 @SoftDelete
 @EqualsAndHashCode(of = "id")
 @EntityListeners(AuditListener.class)
-@Table(indexes = @Index(columnList = "ownerId"))
+@Table(indexes = {@Index(columnList = "ownerId"), @Index(columnList = "chosung")})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product implements Auditable {
 
@@ -52,6 +52,9 @@ public class Product implements Auditable {
     @Enumerated(EnumType.STRING)
     private ProduceSize productSize;
 
+    @Column(nullable = false)
+    private String chosung;
+
     @Setter @Embedded private BaseTime baseTime;
 
     @Builder
@@ -64,7 +67,8 @@ public class Product implements Auditable {
             final String description,
             final String barcode,
             final LocalDate expirationDate,
-            final ProduceSize productSize) {
+            final ProduceSize productSize,
+            final String chosung) {
         this.ownerId = ownerId;
         this.category = category;
         this.price = price;
@@ -74,6 +78,7 @@ public class Product implements Auditable {
         this.barcode = barcode;
         this.expirationDate = expirationDate;
         this.productSize = productSize;
+        this.chosung = chosung;
     }
 
     public void update(

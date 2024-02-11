@@ -236,7 +236,7 @@ class ProductServiceTest extends LoginTest {
             @DisplayName("상품을 반환한다")
             @Test
             void itReturnsProduct() {
-                assertThat(productService.getProduct(productId)).isNotNull();
+                assertThat(productService.getProductDetail(productId)).isNotNull();
             }
         }
 
@@ -247,7 +247,7 @@ class ProductServiceTest extends LoginTest {
             @DisplayName("EntityNotFoundException이 발생한다")
             @Test
             void itThrowsEntityNotFoundException() {
-                assertThatThrownBy(() -> productService.getProduct(UUID.randomUUID()))
+                assertThatThrownBy(() -> productService.getProductDetail(UUID.randomUUID()))
                         .isInstanceOf(EntityNotFoundException.class);
             }
         }

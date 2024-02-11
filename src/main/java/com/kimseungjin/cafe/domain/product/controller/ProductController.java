@@ -3,6 +3,7 @@ package com.kimseungjin.cafe.domain.product.controller;
 import com.kimseungjin.cafe.domain.product.dto.ProductDetailResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
+import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.service.ProductService;
 import com.kimseungjin.cafe.global.dto.BaseResponse;
 import com.kimseungjin.cafe.global.dto.IdResponse;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -60,6 +62,13 @@ public class ProductController implements ProductApi {
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse<ProductDetailResponse> getProductDetail(@PathVariable("id") final UUID id) {
-        return BaseResponse.successOf(HttpStatus.OK, productService.getProduct(id));
+        return BaseResponse.successOf(HttpStatus.OK, productService.getProductDetail(id));
+    }
+
+    @Override
+    @GetMapping("search")
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<List<ProductResponse>> searchProducts(@RequestParam("q") final String query) {
+        return BaseResponse.successOf(HttpStatus.OK, productService.searchProducts(query));
     }
 }
