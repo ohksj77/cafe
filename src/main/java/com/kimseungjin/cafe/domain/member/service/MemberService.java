@@ -52,4 +52,8 @@ public class MemberService {
                 .findByLoginInfoPhoneNumber(credentialRequest.getPhoneNumber())
                 .orElseThrow(LoginFailedException::new);
     }
+
+    public void logout(final String bearerToken) {
+        authService.logout(bearerToken);
+    }
 }

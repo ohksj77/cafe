@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +35,11 @@ public class MemberController implements MemberApi {
     public BaseResponse<JwtToken> login(
             @RequestBody @Valid final CredentialRequest credentialRequest) {
         return BaseResponse.successOf(HttpStatus.OK, memberService.login(credentialRequest));
+    }
+
+    @PostMapping("logout")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void logout(@RequestHeader(HttpHeaders.AUTHORIZATION) final String bearerToken) {
+        memberService.logout(bearerToken);
     }
 }

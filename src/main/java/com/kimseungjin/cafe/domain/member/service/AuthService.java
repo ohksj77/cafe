@@ -6,12 +6,14 @@ import com.kimseungjin.cafe.config.security.user.UserAuthDetails;
 import com.kimseungjin.cafe.domain.member.entity.Member;
 import com.kimseungjin.cafe.domain.member.repository.MemberRepository;
 import com.kimseungjin.cafe.global.exception.EntityNotFoundException;
+import com.kimseungjin.cafe.utils.BlackListUtils;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,6 +22,7 @@ public class AuthService {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberRepository memberRepository;
+    private final BlackListUtils blackListUtils;
 
     public JwtToken createJwtToken(final Member member) {
         return jwtTokenProvider.createToken(member);
@@ -38,5 +41,10 @@ public class AuthService {
         return memberRepository
                 .findById(getLoginUserId())
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public void logout(final String bearerToken) {
+        final Optional<String> token = jwtTokenProvider.resolveToken(bearerToken);
+        token.ifPresent(blackListUtils::add);
     }
 }

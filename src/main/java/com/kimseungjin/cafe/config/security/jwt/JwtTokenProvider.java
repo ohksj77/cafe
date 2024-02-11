@@ -5,6 +5,7 @@ import com.kimseungjin.cafe.config.security.user.UserAuthDetailsService;
 import com.kimseungjin.cafe.config.security.user.UserAuthorityManager;
 import com.kimseungjin.cafe.domain.member.entity.Member;
 import com.kimseungjin.cafe.domain.member.entity.Role;
+import com.kimseungjin.cafe.utils.BlackListUtils;
 
 import io.jsonwebtoken.*;
 
@@ -15,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.util.Date;
@@ -29,16 +31,27 @@ public class JwtTokenProvider {
     private static final Long REFRESH_TOKEN_EXPIRE_LENGTH = 60L * 60 * 24 * 1000; // 24 hour
     private static final String JWT_SUBJECT = "jwt-auth";
     private static final String AUTHORITIES_KEY = "auth";
+    private static final String BEARER_PREFIX = "Bearer ";
     private final UserAuthorityManager userAuthorityManager;
     private final UserAuthDetailsService userAuthDetailsService;
+    private final BlackListUtils blackListUtils;
     private final Key key;
 
     public void validateToken(final String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            if (blackListUtils.hasKey(token)) {
+                throw new InvalidTokenException();
+            }
         } catch (ExpiredJwtException | UnsupportedJwtException | IllegalStateException e) {
             throw new InvalidTokenException();
         }
+    }
+
+    public Optional<String> resolveToken(final String bearerToken) {
+        return Optional.ofNullable(bearerToken)
+                .filter(token -> StringUtils.hasText(token) && token.startsWith(BEARER_PREFIX))
+                .map(token -> token.substring(BEARER_PREFIX.length()));
     }
 
     public JwtToken createToken(final Member user) {
@@ -86,15 +99,21 @@ public class JwtTokenProvider {
         return claims;
     }
 
-    public Authentication getAuthentication(final String token) {
-        final Claims claims = parseClaims(token);
+    public Authentication getAuthentication(final String bearerToken) {
+        final Optional<String> token = resolveToken(bearerToken);
 
-        final List<SimpleGrantedAuthority> authorities = mapToAuthorities(claims);
-        final UserDetails userDetails =
-                userAuthDetailsService.loadUserByUsername(claims.getSubject());
+        return token.map(
+                t -> {
+                    validateToken(t);
+                    final Claims claims = parseClaims(t);
+                    final List<SimpleGrantedAuthority> authorities = mapToAuthorities(claims);
+                    final UserDetails userDetails =
+                            userAuthDetailsService.loadUserByUsername(claims.getSubject());
 
-        return new UsernamePasswordAuthenticationToken(
-                userDetails, userDetails.getPassword(), authorities);
+                    return new UsernamePasswordAuthenticationToken(
+                            userDetails, userDetails.getPassword(), authorities);
+                }
+        ).orElseThrow(InvalidTokenException::new);
     }
 
     private List<SimpleGrantedAuthority> mapToAuthorities(final Claims claims) {

@@ -26,6 +26,15 @@ spring:
   flyway:
     enabled: false
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+
 encrypt:
   key: testtesttesttesttesttesttesttesttesttesttesttesttesttesttest
   salt: 1112223334445556
