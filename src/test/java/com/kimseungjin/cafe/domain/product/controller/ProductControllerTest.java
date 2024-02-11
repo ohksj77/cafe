@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
 import com.kimseungjin.cafe.domain.product.service.ProductService;
+import com.kimseungjin.cafe.fixture.product.ProductDetailResponseFixture;
 import com.kimseungjin.cafe.fixture.product.ProductRequestFixture;
 import com.kimseungjin.cafe.fixture.product.ProductResponseFixture;
 import com.kimseungjin.cafe.global.dto.IdResponse;
@@ -203,6 +204,38 @@ class ProductControllerTest extends ControllerTest {
                                                     + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
 
                 perform.andExpect(status().isOk()).andExpect(jsonPath("$.data.products").isArray());
+            }
+        }
+    }
+
+    @DisplayName("getProductDetail 메소드는")
+    @Nested
+    class GetProductDetail {
+
+        private final UUID id = UUID.randomUUID();
+
+        @BeforeEach
+        void setup() {
+            when(productService.getProduct(id)).thenReturn(ProductDetailResponseFixture.RESPONSE1.toResponse());
+        }
+
+        @DisplayName("정상적인 요청이 들어오면")
+        @Nested
+        class WhenRequestValid {
+
+            @DisplayName("상품 상세 정보가 반환된다")
+            @Test
+            void getProductDetail() throws Exception {
+                final ResultActions perform =
+                        mockMvc.perform(
+                                get("/products/" + id)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .header(
+                                                HttpHeaders.AUTHORIZATION,
+                                                "Bearer"
+                                                    + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
+
+                perform.andExpect(status().isOk()).andExpect(jsonPath("$.data").isMap());
             }
         }
     }

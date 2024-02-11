@@ -214,4 +214,40 @@ class ProductServiceTest extends LoginTest {
             }
         }
     }
+
+    @DisplayName("getProduct 메서드는")
+    @Nested
+    class GetProduct {
+
+        @DisplayName("상품이 존재하면")
+        @Nested
+        class WhenProductExists {
+
+            private UUID productId;
+
+            @BeforeEach
+            void setup() {
+                final IdResponse<UUID> result = productService.registerProduct(ProductRequestFixture.SUCCESS_REQUEST1.toRequest());
+                productId = result.getId();
+            }
+
+            @DisplayName("상품을 반환한다")
+            @Test
+            void itReturnsProduct() {
+                assertThat(productService.getProduct(productId)).isNotNull();
+            }
+        }
+
+        @DisplayName("상품이 존재하지 않으면")
+        @Nested
+        class WhenProductNotExists {
+
+            @DisplayName("EntityNotFoundException이 발생한다")
+            @Test
+            void itThrowsEntityNotFoundException() {
+                assertThatThrownBy(() -> productService.getProduct(UUID.randomUUID()))
+                        .isInstanceOf(EntityNotFoundException.class);
+            }
+        }
+    }
 }

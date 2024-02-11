@@ -1,5 +1,6 @@
 package com.kimseungjin.cafe.domain.product.mapper;
 
+import com.kimseungjin.cafe.domain.product.dto.ProductDetailResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
 import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
@@ -42,4 +43,16 @@ public interface ProductMapper {
     @Mapping(target = "price", source = "product.price")
     @Mapping(target = "category", source = "product.category")
     ProductResponse toResponse(final Product product);
+
+    @Mapping(target = "id", source = "product.id")
+    @Mapping(target = "ownerId", source = "product.ownerId")
+    @Mapping(target = "category", source = "product.category")
+    @Mapping(target = "price", source = "product.price")
+    @Mapping(target = "cost", source = "product.cost")
+    @Mapping(target = "name", source = "product.name")
+    @Mapping(target = "description", source = "product.description")
+    @Mapping(target = "barcode", source = "product.barcode")
+    @Mapping(target = "expirationDate", source = "product.expirationDate")
+    @Mapping(target = "productSize", source = "product.productSize")
+    ProductDetailResponse toProductDetailResponse(Product product);
 }
