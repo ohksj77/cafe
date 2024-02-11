@@ -27,9 +27,9 @@ public class UserAuthDetails implements UserDetails {
     public UserAuthDetails(
             final Member member, final Collection<? extends GrantedAuthority> authorities) {
         this.member = member;
-        this.name = member.getLoginInfo().getPhoneNumber();
+        this.name = member.getLoginCredentials().getPhoneNumber();
         this.authorities = authorities;
-        this.password = member.getLoginInfo().getPassword();
+        this.password = member.getLoginCredentials().getPassword();
         this.username = member.getId().toString();
         this.isAccountNonExpired = true;
         this.isAccountNonLocked = true;

@@ -35,6 +35,8 @@ public class ProductService {
     @Transactional
     public void updateProduct(final UUID id, final ProductRequest productRequest) {
         final Product product = getEntity(id);
+        product.validateOwner(authService.getLoginUserId());
+
         product.update(
                 productRequest.getCategory(),
                 productRequest.getPrice(),
@@ -48,5 +50,13 @@ public class ProductService {
 
     private Product getEntity(final UUID id) {
         return productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Transactional
+    public void removeProduct(final UUID id) {
+        final Product product = getEntity(id);
+        product.validateOwner(authService.getLoginUserId());
+
+        productRepository.removeById(id);
     }
 }

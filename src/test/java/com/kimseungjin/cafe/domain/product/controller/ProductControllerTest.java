@@ -2,8 +2,7 @@ package com.kimseungjin.cafe.domain.product.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -131,7 +130,7 @@ class ProductControllerTest extends ControllerTest {
             private final ProductRequest productRequest =
                     ProductRequestFixture.FAILURE_REQUEST1.toRequest();
 
-            @DisplayName("상품이 수정된다")
+            @DisplayName("400 에러가 발생한다.")
             @Test
             void updateProduct() throws Exception {
                 final ResultActions perform =
@@ -145,6 +144,33 @@ class ProductControllerTest extends ControllerTest {
                                         .content(toRequestBody(productRequest)));
 
                 perform.andExpect(status().isBadRequest());
+            }
+        }
+    }
+
+    @DisplayName("removeProduct 메소드는")
+    @Nested
+    class RemoveProduct {
+
+        @DisplayName("정상적인 요청이 들어오면")
+        @Nested
+        class WhenRequestValid {
+
+            private final UUID id = UUID.randomUUID();
+
+            @DisplayName("상품이 삭제된다")
+            @Test
+            void removeProduct() throws Exception {
+                final ResultActions perform =
+                        mockMvc.perform(
+                                delete("/products/" + id)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .header(
+                                                HttpHeaders.AUTHORIZATION,
+                                                "Bearer"
+                                                    + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
+
+                perform.andExpect(status().isNoContent());
             }
         }
     }

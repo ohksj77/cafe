@@ -21,6 +21,7 @@ public class ProductController implements ProductApi {
 
     private final ProductService productService;
 
+    @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BaseResponse<IdResponse<UUID>> registerProduct(
@@ -29,11 +30,19 @@ public class ProductController implements ProductApi {
                 HttpStatus.CREATED, productService.registerProduct(productRequest));
     }
 
+    @Override
     @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateProduct(
             @PathVariable("id") final UUID id,
             @RequestBody @Valid final ProductRequest productRequest) {
         productService.updateProduct(id, productRequest);
+    }
+
+    @Override
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeProduct(@PathVariable("id") final UUID id) {
+        productService.removeProduct(id);
     }
 }

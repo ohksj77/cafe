@@ -10,7 +10,7 @@ public interface MemberRepository {
 
     <S extends Member> S save(final S member);
 
-    boolean existsByLoginInfoPhoneNumber(final String phoneNumber);
+    boolean existsByLoginCredentialsPhoneNumber(final String phoneNumber);
 
-    Optional<Member> findByLoginInfoPhoneNumber(final String phoneNumber);
+    Optional<Member> findByLoginCredentialsPhoneNumber(final String phoneNumber);
 }

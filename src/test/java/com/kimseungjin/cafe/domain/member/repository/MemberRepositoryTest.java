@@ -16,9 +16,9 @@ class MemberRepositoryTest extends RepositoryTest {
 
     @Autowired private MemberRepository memberRepository;
 
-    @DisplayName("ExsistsByLoginInfoPhoneNumber 메소드는")
+    @DisplayName("ExsistsByLoginCredentialsPhoneNumber 메소드는")
     @Nested
-    class ExistsByLoginInfoPhoneNumber {
+    class ExistsByLoginCredentialsPhoneNumber {
 
         @DisplayName("전화번호가 존재하면")
         @Nested
@@ -35,8 +35,8 @@ class MemberRepositoryTest extends RepositoryTest {
             @Test
             void returnTrue() {
                 final boolean isExists =
-                        memberRepository.existsByLoginInfoPhoneNumber(
-                                member.getLoginInfo().getPhoneNumber());
+                        memberRepository.existsByLoginCredentialsPhoneNumber(
+                                member.getLoginCredentials().getPhoneNumber());
                 assertThat(isExists).isTrue();
             }
         }
@@ -50,15 +50,15 @@ class MemberRepositoryTest extends RepositoryTest {
             @DisplayName("false를 반환한다")
             @Test
             void returnFalse() {
-                final boolean isExists = memberRepository.existsByLoginInfoPhoneNumber(phoneNumber);
+                final boolean isExists = memberRepository.existsByLoginCredentialsPhoneNumber(phoneNumber);
                 assertThat(isExists).isFalse();
             }
         }
     }
 
-    @DisplayName("findByLoginInfoPhoneNumber 메소드는")
+    @DisplayName("findByLoginCredentialsPhoneNumber 메소드는")
     @Nested
-    class FindByLoginInfoPhoneNumber {
+    class FindByLoginCredentialsPhoneNumber {
 
         @DisplayName("전화번호가 존재하면")
         @Nested
@@ -76,7 +76,7 @@ class MemberRepositoryTest extends RepositoryTest {
             void returnMember() {
                 final Member foundMember =
                         memberRepository
-                                .findByLoginInfoPhoneNumber(member.getLoginInfo().getPhoneNumber())
+                                .findByLoginCredentialsPhoneNumber(member.getLoginCredentials().getPhoneNumber())
                                 .orElseThrow();
                 assertThat(foundMember).isEqualTo(member);
             }
@@ -91,7 +91,7 @@ class MemberRepositoryTest extends RepositoryTest {
             @DisplayName("빈 Optional을 반환한다")
             @Test
             void returnEmptyOptional() {
-                final var foundMember = memberRepository.findByLoginInfoPhoneNumber(phoneNumber);
+                final var foundMember = memberRepository.findByLoginCredentialsPhoneNumber(phoneNumber);
                 assertThat(foundMember).isEmpty();
             }
         }

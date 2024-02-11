@@ -42,7 +42,7 @@ class MemberServiceTest extends LoginTest {
 
                 assertThat(idResponse.getId()).isNotNull();
                 assertThat(
-                                memberRepository.existsByLoginInfoPhoneNumber(
+                                memberRepository.existsByLoginCredentialsPhoneNumber(
                                         credentialRequest.getPhoneNumber()))
                         .isTrue();
             }

@@ -1,6 +1,7 @@
 package com.kimseungjin.cafe.domain.product.entity;
 
 import com.github.f4b6a3.ulid.UlidCreator;
+import com.kimseungjin.cafe.domain.product.exception.OwnerMismatchException;
 import com.kimseungjin.cafe.global.audit.AuditListener;
 import com.kimseungjin.cafe.global.audit.Auditable;
 import com.kimseungjin.cafe.global.audit.BaseTime;
@@ -92,5 +93,11 @@ public class Product implements Auditable {
         this.barcode = barcode;
         this.expirationDate = expirationDate;
         this.productSize = productSize;
+    }
+
+    public void validateOwner(final UUID loginUserId) {
+        if (!ownerId.equals(loginUserId)) {
+            throw new OwnerMismatchException();
+        }
     }
 }

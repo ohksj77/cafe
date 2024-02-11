@@ -23,6 +23,7 @@ public class MemberController implements MemberApi {
 
     private final MemberService memberService;
 
+    @Override
     @PostMapping("signup")
     @ResponseStatus(HttpStatus.CREATED)
     public BaseResponse<IdResponse<UUID>> signup(
@@ -30,6 +31,7 @@ public class MemberController implements MemberApi {
         return BaseResponse.successOf(HttpStatus.CREATED, memberService.signup(credentialRequest));
     }
 
+    @Override
     @PostMapping("login")
     @ResponseStatus(HttpStatus.OK)
     public BaseResponse<JwtToken> login(
@@ -37,6 +39,7 @@ public class MemberController implements MemberApi {
         return BaseResponse.successOf(HttpStatus.OK, memberService.login(credentialRequest));
     }
 
+    @Override
     @PostMapping("logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout(@RequestHeader(HttpHeaders.AUTHORIZATION) final String bearerToken) {

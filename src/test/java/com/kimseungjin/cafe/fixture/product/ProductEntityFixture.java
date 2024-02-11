@@ -54,4 +54,18 @@ public enum ProductEntityFixture {
                 .productSize(productSize)
                 .build();
     }
+
+    public Product toEntity(UUID ownerId) {
+        return Product.builder()
+                .ownerId(ownerId)
+                .category(category)
+                .price(price)
+                .cost(cost)
+                .name(name)
+                .description(description)
+                .barcode(barcode)
+                .expirationDate(expirationDate)
+                .productSize(productSize)
+                .build();
+    }
 }

@@ -41,7 +41,7 @@ public class MemberService {
     }
 
     private boolean isPhoneNumberExists(final String phoneNumber) {
-        return memberRepository.existsByLoginInfoPhoneNumber(phoneNumber);
+        return memberRepository.existsByLoginCredentialsPhoneNumber(phoneNumber);
     }
 
     @Transactional(readOnly = true)
@@ -54,7 +54,7 @@ public class MemberService {
 
     private Member getMemberByPhoneNumber(final CredentialRequest credentialRequest) {
         return memberRepository
-                .findByLoginInfoPhoneNumber(credentialRequest.getPhoneNumber())
+                .findByLoginCredentialsPhoneNumber(credentialRequest.getPhoneNumber())
                 .orElseThrow(LoginFailedException::new);
     }
 
