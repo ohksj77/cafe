@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -29,8 +30,11 @@ public class JwtFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         final String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-        Authentication authentication = jwtTokenProvider.getAuthentication(bearerToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        if (StringUtils.hasText(bearerToken)) {
+            Authentication authentication = jwtTokenProvider.getAuthentication(bearerToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
 
         filterChain.doFilter(request, response);
     }
