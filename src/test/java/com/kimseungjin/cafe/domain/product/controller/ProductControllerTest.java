@@ -48,17 +48,21 @@ class ProductControllerTest extends ControllerTest {
         @Nested
         class WhenRequestIsValid {
 
-            private final ProductRequest productRequest = ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
+            private final ProductRequest productRequest =
+                    ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
 
             @DisplayName("상품이 저장된다")
             @Test
             void saveProduct() throws Exception {
-                final ResultActions perform = mockMvc.perform(
-                        post("/products")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .header(HttpHeaders.AUTHORIZATION, "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
-                                .content(
-                                        toRequestBody(productRequest)));
+                final ResultActions perform =
+                        mockMvc.perform(
+                                post("/products")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .header(
+                                                HttpHeaders.AUTHORIZATION,
+                                                "Bearer"
+                                                    + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
+                                        .content(toRequestBody(productRequest)));
 
                 perform.andExpect(status().isCreated())
                         .andExpect(jsonPath("$.data.id").value(expected.getId().toString()));
@@ -69,17 +73,21 @@ class ProductControllerTest extends ControllerTest {
         @Nested
         class WhenRequestIsInvalid {
 
-            private final ProductRequest productRequest = ProductRequestFixture.FAILURE_REQUEST1.toRequest();
+            private final ProductRequest productRequest =
+                    ProductRequestFixture.FAILURE_REQUEST1.toRequest();
 
             @DisplayName("400 에러가 발생한다.")
             @Test
             void saveProduct() throws Exception {
-                final ResultActions perform = mockMvc.perform(
-                        post("/products")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .header(HttpHeaders.AUTHORIZATION, "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
-                                .content(
-                                        toRequestBody(productRequest)));
+                final ResultActions perform =
+                        mockMvc.perform(
+                                post("/products")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .header(
+                                                HttpHeaders.AUTHORIZATION,
+                                                "Bearer"
+                                                    + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
+                                        .content(toRequestBody(productRequest)));
 
                 perform.andExpect(status().isBadRequest());
             }
@@ -95,17 +103,21 @@ class ProductControllerTest extends ControllerTest {
         class WhenRequestIsValid {
 
             private final UUID id = UUID.randomUUID();
-            private final ProductRequest productRequest = ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
+            private final ProductRequest productRequest =
+                    ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
 
             @DisplayName("상품이 수정된다")
             @Test
             void updateProduct() throws Exception {
-                final ResultActions perform = mockMvc.perform(
-                        patch("/products/" + id)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .header(HttpHeaders.AUTHORIZATION, "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
-                                .content(
-                                        toRequestBody(productRequest)));
+                final ResultActions perform =
+                        mockMvc.perform(
+                                patch("/products/" + id)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .header(
+                                                HttpHeaders.AUTHORIZATION,
+                                                "Bearer"
+                                                    + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
+                                        .content(toRequestBody(productRequest)));
 
                 perform.andExpect(status().isNoContent());
             }
@@ -116,17 +128,21 @@ class ProductControllerTest extends ControllerTest {
         class WhenRequestIsInValid {
 
             private final UUID id = UUID.randomUUID();
-            private final ProductRequest productRequest = ProductRequestFixture.FAILURE_REQUEST1.toRequest();
+            private final ProductRequest productRequest =
+                    ProductRequestFixture.FAILURE_REQUEST1.toRequest();
 
             @DisplayName("상품이 수정된다")
             @Test
             void updateProduct() throws Exception {
-                final ResultActions perform = mockMvc.perform(
-                        patch("/products/" + id)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .header(HttpHeaders.AUTHORIZATION, "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
-                                .content(
-                                        toRequestBody(productRequest)));
+                final ResultActions perform =
+                        mockMvc.perform(
+                                patch("/products/" + id)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .header(
+                                                HttpHeaders.AUTHORIZATION,
+                                                "Bearer"
+                                                    + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
+                                        .content(toRequestBody(productRequest)));
 
                 perform.andExpect(status().isBadRequest());
             }

@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 public enum ProductRequestFixture {
-
     SUCCESS_REQUEST1(
             "음료",
             5000,
@@ -18,8 +17,7 @@ public enum ProductRequestFixture {
             "진한 초코가 들어간 라떼",
             "123456789",
             LocalDate.now().plusDays(7),
-            ProduceSize.SMALL
-    ),
+            ProduceSize.SMALL),
     FAILURE_REQUEST1(
             "음료",
             5000,
@@ -28,8 +26,7 @@ public enum ProductRequestFixture {
             "진한 초코가 들어간 라떼",
             "123456789",
             LocalDate.now().minusDays(1),
-            ProduceSize.SMALL
-    );
+            ProduceSize.SMALL);
 
     private final String category;
     private final Integer price;
@@ -41,6 +38,7 @@ public enum ProductRequestFixture {
     private final ProduceSize productSize;
 
     public ProductRequest toRequest() {
-        return new ProductRequest(category, price, cost, name, description, barcode, expirationDate, productSize);
+        return new ProductRequest(
+                category, price, cost, name, description, barcode, expirationDate, productSize);
     }
 }

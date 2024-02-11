@@ -33,7 +33,8 @@ class ProductRepositoryTest extends RepositoryTest {
 
             @BeforeEach
             void setup() {
-                this.id = productRepository.save(ProductEntityFixture.CHOCO_LATTE.toEntity()).getId();
+                this.id =
+                        productRepository.save(ProductEntityFixture.CHOCO_LATTE.toEntity()).getId();
             }
 
             @DisplayName("상품을 반환한다")

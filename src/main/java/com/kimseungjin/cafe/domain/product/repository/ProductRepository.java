@@ -7,5 +7,6 @@ import java.util.UUID;
 
 public interface ProductRepository {
     <S extends Product> S save(final S product);
+
     Optional<Product> findById(final UUID id);
 }

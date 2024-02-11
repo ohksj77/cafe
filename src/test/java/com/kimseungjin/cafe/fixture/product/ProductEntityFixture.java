@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public enum ProductEntityFixture {
-
     CHOCO_LATTE(
             UUID.randomUUID(),
             "음료",
@@ -20,8 +19,7 @@ public enum ProductEntityFixture {
             "진한 초코가 들어간 라떼",
             "123456789",
             LocalDate.now().plusDays(7),
-            ProduceSize.SMALL
-    ),
+            ProduceSize.SMALL),
     CAFE_LATTE(
             UUID.randomUUID(),
             "음료",
@@ -31,8 +29,7 @@ public enum ProductEntityFixture {
             "시그니처 라떼",
             "123456789",
             LocalDate.now().minusDays(1),
-            ProduceSize.SMALL
-    );
+            ProduceSize.SMALL);
 
     private final UUID ownerId;
     private final String category;

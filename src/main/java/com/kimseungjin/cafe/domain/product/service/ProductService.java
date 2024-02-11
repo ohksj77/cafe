@@ -47,7 +47,6 @@ public class ProductService {
     }
 
     private Product getEntity(final UUID id) {
-        return productRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+        return productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }
