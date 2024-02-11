@@ -10,7 +10,7 @@ import org.mapstruct.MappingConstants.ComponentModel;
 @Mapper(componentModel = ComponentModel.SPRING)
 public interface MemberMapper {
 
-    @Mapping(target = "phoneNumber", source = "phoneNumber")
-    @Mapping(target = "password", source = "password")
+    @Mapping(target = "phoneNumber", source = "credentialRequest.phoneNumber")
+    @Mapping(target = "password", source = "credentialRequest.password")
     Member toEntity(final CredentialRequest credentialRequest);
 }

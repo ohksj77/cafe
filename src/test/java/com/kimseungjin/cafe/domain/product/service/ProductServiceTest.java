@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
+import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
 import com.kimseungjin.cafe.domain.product.exception.OwnerMismatchException;
 import com.kimseungjin.cafe.domain.product.repository.ProductRepository;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
+import java.util.stream.Stream;
 
 class ProductServiceTest extends LoginTest {
 
@@ -159,6 +161,56 @@ class ProductServiceTest extends LoginTest {
                 when(authService.getLoginUserId()).thenReturn(UUID.randomUUID());
                 assertThatThrownBy(() -> productService.removeProduct(productId))
                         .isInstanceOf(OwnerMismatchException.class);
+            }
+        }
+    }
+
+    @DisplayName("getProducts 메서드는")
+    @Nested
+    class GetProducts {
+
+        @BeforeEach
+        void setup() {
+            Stream.generate(ProductRequestFixture.SUCCESS_REQUEST1::toRequest)
+                    .limit(13)
+                    .forEach(productService::registerProduct);
+        }
+
+        @DisplayName("상품이 다음 페이지에도 존재하는 페이지면")
+        @Nested
+        class WhenProductExists {
+
+            @DisplayName("상품을 10개 반환한다")
+            @Test
+            void itReturnsProducts() {
+                final ProductPageResponse productPageResponse = productService.getProducts(0);
+                assertThat(productPageResponse.getProducts()).isNotEmpty();
+                assertThat(productPageResponse.getHasNext()).isTrue();
+            }
+        }
+
+        @DisplayName("마지막 페이지면")
+        @Nested
+        class WhenLastPage {
+
+            @DisplayName("상품을 1개 이상 10개 이하 반환한다")
+            @Test
+            void itReturnsProducts() {
+                final ProductPageResponse productPageResponse = productService.getProducts(1);
+                assertThat(productPageResponse.getProducts()).hasSizeBetween(1, 10);
+                assertThat(productPageResponse.getHasNext()).isFalse();
+            }
+        }
+
+        @DisplayName("상품이 존재하지 않은 페이지면")
+        @Nested
+        class WhenProductNotExistingPage {
+
+            @DisplayName("빈 리스트를 반환한다")
+            @Test
+            void itReturnsEmptyList() {
+                final ProductPageResponse productPageResponse = productService.getProducts(2);
+                assertThat(productPageResponse.getProducts()).isNull();
             }
         }
     }

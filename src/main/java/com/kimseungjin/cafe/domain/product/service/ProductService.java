@@ -1,15 +1,18 @@
 package com.kimseungjin.cafe.domain.product.service;
 
 import com.kimseungjin.cafe.domain.member.service.AuthService;
+import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
 import com.kimseungjin.cafe.domain.product.entity.Product;
 import com.kimseungjin.cafe.domain.product.mapper.ProductMapper;
 import com.kimseungjin.cafe.domain.product.repository.ProductRepository;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 import com.kimseungjin.cafe.global.exception.EntityNotFoundException;
+import com.kimseungjin.cafe.utils.PageableUtils;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,5 +61,13 @@ public class ProductService {
         product.validateOwner(authService.getLoginUserId());
 
         productRepository.removeById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductPageResponse getProducts(final Integer page) {
+        final UUID ownerId = authService.getLoginUserId();
+        final Page<Product> products = productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(page));
+
+        return productMapper.toProductPageResponse(products);
     }
 }
