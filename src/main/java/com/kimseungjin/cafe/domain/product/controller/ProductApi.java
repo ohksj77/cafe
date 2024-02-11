@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.ErrorResponse;
 
 import java.util.List;
@@ -79,5 +78,5 @@ public interface ProductApi {
             description = "인증 정보가 잘못되었습니다.",
             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     @SecurityRequirement(name = "Authorization")
-    BaseResponse<List<ProductResponse>> getProducts(final Pageable pageable);
+    BaseResponse<List<ProductResponse>> getProducts(final Integer page);
 }

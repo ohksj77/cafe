@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +51,7 @@ public class ProductController implements ProductApi {
     @Override
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<List<ProductResponse>> getProducts(final Pageable pageable) {
-        return BaseResponse.successOf(HttpStatus.OK, productService.getProducts(pageable));
+    public BaseResponse<List<ProductResponse>> getProducts(@RequestParam(name = "page", defaultValue = "0") final Integer page) {
+        return BaseResponse.successOf(HttpStatus.OK, productService.getProducts(page));
     }
 }

@@ -8,10 +8,10 @@ import com.kimseungjin.cafe.domain.product.mapper.ProductMapper;
 import com.kimseungjin.cafe.domain.product.repository.ProductRepository;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 import com.kimseungjin.cafe.global.exception.EntityNotFoundException;
+import com.kimseungjin.cafe.utils.PageableUtils;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,9 +63,10 @@ public class ProductService {
         productRepository.removeById(id);
     }
 
-    public List<ProductResponse> getProducts(final Pageable pageable) {
+    @Transactional(readOnly = true)
+    public List<ProductResponse> getProducts(final Integer page) {
         final UUID ownerId = authService.getLoginUserId();
-        final List<Product> products = productRepository.findAllByOwnerId(ownerId, pageable);
+        final List<Product> products = productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(page));
 
         return productMapper.toResponses(products);
     }
