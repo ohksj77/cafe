@@ -15,12 +15,16 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
+    private BaseResponse(final Integer code, final String message) {
+        this.meta = new MetaResponse(code, message);
+    }
+
     public static <T> BaseResponse<T> successOf(final HttpStatus httpStatus, final T data) {
         return new BaseResponse<>(httpStatus.value(), httpStatus.getReasonPhrase(), data);
     }
 
     public static BaseResponse<Void> errorOf(
             final HttpStatus httpStatus, final Exception exception) {
-        return new BaseResponse<>(httpStatus.value(), exception.getMessage(), null);
+        return new BaseResponse<>(httpStatus.value(), exception.getMessage());
     }
 }

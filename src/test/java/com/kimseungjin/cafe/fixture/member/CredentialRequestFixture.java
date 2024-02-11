@@ -1,11 +1,11 @@
 package com.kimseungjin.cafe.fixture.member;
 
-import com.kimseungjin.cafe.domain.member.dto.SignupRequest;
+import com.kimseungjin.cafe.domain.member.dto.CredentialRequest;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum SignupRequestFixture {
+public enum CredentialRequestFixture {
     SUCCESS1("010-0000-0000", "password"),
     SUCCESS2("010-0000-0001", "password"),
     PHONE_NUMBER_FAILURE1("010-0-0", "password"),
@@ -15,7 +15,7 @@ public enum SignupRequestFixture {
     private final String phoneNumber;
     private final String password;
 
-    public SignupRequest toRequest() {
-        return new SignupRequest(this.phoneNumber, this.password);
+    public CredentialRequest toRequest() {
+        return new CredentialRequest(this.phoneNumber, this.password);
     }
 }

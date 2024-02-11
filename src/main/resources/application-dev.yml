@@ -33,7 +33,7 @@ spring:
       port: 6379
 
 token:
-  secret-key: aslalijhsdfgbakujshdfgaksujdhfg238475rghwegfajhsdfgjasdhfg82347asggasgadsfgagasdghjmhdev
+  secret-key: aslalijhsdfgbakujshdfgaksujdhfg238475rghwegfajhsdfgjasdhfg82347asggasgadsfgagasdghjmhdev43214321asdfasdfqqqqrtfffdbv245tdfzg
 
 encrypt:
   key: 1111asidfuhaierswufhaoiwurgh3189047oajsdufh923954823ytjsgnaosdkfhj4444dev

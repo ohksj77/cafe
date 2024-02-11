@@ -29,7 +29,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private static final String[] AUTH_WHITELIST = {"swagger-ui/**", "v3/**", "members/signup"};
+    private static final String[] AUTH_WHITELIST = {"swagger-ui/**", "v3/**", "members/signup", "members/login"};
     private static final String ROLE_HIERARCHY = Role.ROLE_ADMIN + " > " + Role.ROLE_USER;
     private static final String ALLOW_ALL = "*";
     private static final String ALL_PATTERN = "/**";
