@@ -13,6 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 public class ProductDetailResponse {
+    private UUID id;
     private UUID ownerId;
     private String category;
     private Integer price;
