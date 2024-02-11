@@ -13,7 +13,7 @@ import lombok.*;
 @EqualsAndHashCode(of = {"phoneNumber", "password"})
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LoginInfo {
+public class LoginCredentials {
 
     @Column(unique = true, nullable = false)
     private String phoneNumber;

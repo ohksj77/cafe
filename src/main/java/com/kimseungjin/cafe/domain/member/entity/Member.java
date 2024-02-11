@@ -26,7 +26,7 @@ public class Member implements Auditable {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
-    @Embedded private LoginInfo loginInfo;
+    @Embedded private LoginCredentials loginCredentials;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -36,12 +36,12 @@ public class Member implements Auditable {
 
     @Builder
     public Member(final String phoneNumber, final String password) {
-        this.loginInfo = new LoginInfo(phoneNumber, password);
+        this.loginCredentials = new LoginCredentials(phoneNumber, password);
         this.role = Role.ROLE_USER;
     }
 
     public void validatePassword(final String password) {
-        if (!loginInfo.isPasswordEquals(password)) {
+        if (!loginCredentials.isPasswordEquals(password)) {
             throw new LoginFailedException();
         }
     }
