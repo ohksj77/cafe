@@ -13,6 +13,7 @@ import com.kimseungjin.cafe.utils.BlackListUtils;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -25,6 +26,7 @@ public class MemberService {
     private final AuthService authService;
     private final BlackListUtils blackListUtils;
 
+    @Transactional
     public IdResponse<UUID> signup(final CredentialRequest credentialRequest) {
         validatePhoneNumberExists(credentialRequest);
         final Member member = memberRepository.save(memberMapper.toEntity(credentialRequest));
@@ -42,6 +44,7 @@ public class MemberService {
         return memberRepository.existsByLoginInfoPhoneNumber(phoneNumber);
     }
 
+    @Transactional(readOnly = true)
     public JwtToken login(final CredentialRequest credentialRequest) {
         final Member member = getMemberByPhoneNumber(credentialRequest);
         member.validatePassword(credentialRequest.getPassword());

@@ -26,4 +26,10 @@ public class ProductController implements ProductApi {
     public BaseResponse<IdResponse<UUID>> registerProduct(@RequestBody @Valid final ProductRequest productRequest) {
         return BaseResponse.successOf(HttpStatus.CREATED, productService.registerProduct(productRequest));
     }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateProduct(@PathVariable("id") final UUID id, @RequestBody @Valid final ProductRequest productRequest) {
+        productService.updateProduct(id, productRequest);
+    }
 }

@@ -10,7 +10,6 @@ import jakarta.persistence.*;
 
 import lombok.*;
 
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SoftDelete;
 
 import java.util.UUID;
@@ -18,7 +17,6 @@ import java.util.UUID;
 @Getter
 @Entity
 @SoftDelete
-@SQLDelete(sql = "UPDATE member SET deleted = true WHERE id = ?")
 @EqualsAndHashCode(of = "id")
 @EntityListeners(AuditListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

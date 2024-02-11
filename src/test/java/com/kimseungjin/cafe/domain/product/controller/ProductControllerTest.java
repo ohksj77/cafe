@@ -2,6 +2,7 @@ package com.kimseungjin.cafe.domain.product.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -75,6 +76,53 @@ class ProductControllerTest extends ControllerTest {
             void saveProduct() throws Exception {
                 final ResultActions perform = mockMvc.perform(
                         post("/products")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header(HttpHeaders.AUTHORIZATION, "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
+                                .content(
+                                        toRequestBody(productRequest)));
+
+                perform.andExpect(status().isBadRequest());
+            }
+        }
+    }
+
+    @DisplayName("updateProduct 메소드는")
+    @Nested
+    class UpdateProduct {
+
+        @DisplayName("정상적인 요청이 들어오면")
+        @Nested
+        class WhenRequestIsValid {
+
+            private final UUID id = UUID.randomUUID();
+            private final ProductRequest productRequest = ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
+
+            @DisplayName("상품이 수정된다")
+            @Test
+            void updateProduct() throws Exception {
+                final ResultActions perform = mockMvc.perform(
+                        patch("/products/" + id)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header(HttpHeaders.AUTHORIZATION, "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
+                                .content(
+                                        toRequestBody(productRequest)));
+
+                perform.andExpect(status().isNoContent());
+            }
+        }
+
+        @DisplayName("잘못된 데이터가 들어오면")
+        @Nested
+        class WhenRequestIsInValid {
+
+            private final UUID id = UUID.randomUUID();
+            private final ProductRequest productRequest = ProductRequestFixture.FAILURE_REQUEST1.toRequest();
+
+            @DisplayName("상품이 수정된다")
+            @Test
+            void updateProduct() throws Exception {
+                final ResultActions perform = mockMvc.perform(
+                        patch("/products/" + id)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .header(HttpHeaders.AUTHORIZATION, "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear")
                                 .content(
