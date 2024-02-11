@@ -17,6 +17,7 @@ import java.util.UUID;
 @Getter
 @Entity
 @SoftDelete
+@EqualsAndHashCode(of = "id")
 @EntityListeners(AuditListener.class)
 @Table(indexes = @Index(columnList = "ownerId"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

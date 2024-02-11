@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.kimseungjin.cafe.config.security.jwt.JwtToken;
 import com.kimseungjin.cafe.domain.member.dto.CredentialRequest;
 import com.kimseungjin.cafe.domain.member.service.MemberService;
 import com.kimseungjin.cafe.fixture.member.CredentialRequestFixture;
@@ -98,6 +99,62 @@ class MemberControllerTest extends ControllerTest {
                                                 toRequestBody(
                                                         CredentialRequestFixture.PASSWORD_FAILURE
                                                                 .toRequest())));
+
+                perform.andExpect(status().isBadRequest());
+            }
+        }
+    }
+
+    @DisplayName("login 메소드는")
+    @Nested
+    class Login {
+
+        private final JwtToken expected = new JwtToken("access", "refresh");
+
+        @BeforeEach
+        void setup() {
+            when(memberService.login(any(CredentialRequest.class)))
+                    .thenReturn(new JwtToken("access token", "refresh token"));
+        }
+
+        @DisplayName("정상적인 요청이 들어오면")
+        @Nested
+        class WhenRequestIsValid {
+
+            private final CredentialRequest request = CredentialRequestFixture.SUCCESS1.toRequest();
+
+            @DisplayName("Jwt 토큰이 발급된다")
+            @Test
+            void login() throws Exception {
+                when(memberService.login(any(CredentialRequest.class))).thenReturn(expected);
+
+                final ResultActions perform =
+                        mockMvc.perform(
+                                post("/members/login")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(
+                                                toRequestBody(request)));
+
+                perform.andExpect(status().isOk())
+                        .andExpect(jsonPath("$.data.accessToken").isString())
+                        .andExpect(jsonPath("$.data.refreshToken").isString());
+            }
+        }
+
+        @DisplayName("잘못된 데이터로 요청시")
+        @Nested
+        class WhenRequestIsInvalid {
+
+            private final CredentialRequest request = CredentialRequestFixture.PASSWORD_FAILURE.toRequest();
+
+            @DisplayName("400 에러가 발생한다")
+            @Test
+            void loginFailed() throws Exception {
+                final ResultActions perform =
+                        mockMvc.perform(
+                                post("/members/login")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(toRequestBody(request)));
 
                 perform.andExpect(status().isBadRequest());
             }

@@ -17,6 +17,7 @@ import java.util.UUID;
 @Getter
 @Entity
 @SoftDelete
+@EqualsAndHashCode(of = "id")
 @EntityListeners(AuditListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member implements Auditable {
