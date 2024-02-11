@@ -4,11 +4,13 @@ import com.kimseungjin.cafe.domain.member.service.AuthService;
 import com.kimseungjin.cafe.domain.product.dto.ProductDetailResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
+import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.entity.Product;
 import com.kimseungjin.cafe.domain.product.mapper.ProductMapper;
 import com.kimseungjin.cafe.domain.product.repository.ProductRepository;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 import com.kimseungjin.cafe.global.exception.EntityNotFoundException;
+import com.kimseungjin.cafe.utils.HangulUtils;
 import com.kimseungjin.cafe.utils.PageableUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -74,10 +77,32 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public ProductDetailResponse getProduct(final UUID id) {
+    public ProductDetailResponse getProductDetail(final UUID id) {
         final Product product = getEntity(id);
         product.validateOwner(authService.getLoginUserId());
 
         return productMapper.toProductDetailResponse(product);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductResponse> searchProducts(final String query) {
+        final UUID ownerId = authService.getLoginUserId();
+
+        final List<Product> products = getProducts(ownerId, query);
+        return productMapper.toResponses(products);
+    }
+
+    private List<Product> getProducts(final UUID ownerId, final String query) {
+        if (HangulUtils.isHangul(query)) {
+            return productRepository.findByOwnerIdAndNameContaining(ownerId, query);
+        }
+        return checkChosungAndGetProducts(ownerId, query);
+    }
+
+    private List<Product> checkChosungAndGetProducts(final UUID ownerId, final String query) {
+        if (HangulUtils.isChosung(query)) {
+            return productRepository.findAllByOwnerIdAndChosungContaining(ownerId, query);
+        }
+        return productRepository.findByOwnerIdAndName(ownerId, query);
     }
 }

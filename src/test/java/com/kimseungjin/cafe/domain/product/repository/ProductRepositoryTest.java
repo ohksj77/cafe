@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -148,6 +149,135 @@ class ProductRepositoryTest extends RepositoryTest {
             void itReturnsProductList() {
                 final Page<Product> result =
                         productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(2));
+                assertThat(result).isEmpty();
+            }
+        }
+    }
+
+    @DisplayName("findAllByOwnerIdAndChosungContaining 메소드는")
+    @Nested
+    class FindAllByOwnerIdAndChosungContaining {
+
+        private final UUID ownerId = UUID.randomUUID();
+        private final List<Product> products = List.of(
+                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                ProductEntityFixture.CAFE_LATTE.toEntity(ownerId)
+        );
+
+        @BeforeEach
+        void setup() {
+            products.forEach(productRepository::save);
+        }
+
+        @DisplayName("초성 일부를 검색하면")
+        @Nested
+        class WhenProductExists {
+
+            @DisplayName("해당하는 상품을 반환한다")
+            @Test
+            void itReturnsProductList() {
+                final List<Product> result = productRepository.findAllByOwnerIdAndChosungContaining(ownerId, "ㅊㅋ");
+
+                assertThat(result).hasSize(2);
+            }
+        }
+
+        @DisplayName("초성의 공통 부분을 검색하면")
+        @Nested
+        class WhenProductExistsWithCommonPart {
+
+            @DisplayName("해당하는 모든 상품을 반환한다")
+            @Test
+            void itReturnsProductList() {
+                final List<Product> result = productRepository.findAllByOwnerIdAndChosungContaining(ownerId, "ㄹㄸ");
+
+                assertThat(result).hasSize(3);
+            }
+        }
+    }
+
+    @DisplayName("findAllByOwnerIdAndNameContaining 메소드는")
+    @Nested
+    class FindAllByOwnerIdAndNameContaining {
+
+        private final UUID ownerId = UUID.randomUUID();
+        private final List<Product> products = List.of(
+                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                ProductEntityFixture.CAFE_LATTE.toEntity(ownerId)
+        );
+
+        @BeforeEach
+        void setup() {
+            products.forEach(productRepository::save);
+        }
+
+        @DisplayName("상품 이름 일부를 검색하면")
+        @Nested
+        class WhenProductExists {
+
+            @DisplayName("해당하는 상품을 반환한다")
+            @Test
+            void itReturnsProductList() {
+                final List<Product> result = productRepository.findByOwnerIdAndNameContaining(ownerId, "초코");
+
+                assertThat(result).hasSize(2);
+            }
+        }
+
+        @DisplayName("상품 이름의 공통 부분을 검색하면")
+        @Nested
+        class WhenProductExistsWithCommonPart {
+
+            @DisplayName("해당하는 모든 상품을 반환한다")
+            @Test
+            void itReturnsProductList() {
+                final List<Product> result = productRepository.findByOwnerIdAndNameContaining(ownerId, "라떼");
+
+                assertThat(result).hasSize(3);
+            }
+        }
+    }
+
+    @DisplayName("findAllByOwnerIdAndName 메소드는")
+    @Nested
+    class FindAllByOwnerIdAndName {
+
+        private final UUID ownerId = UUID.randomUUID();
+        private final List<Product> products = List.of(
+                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                ProductEntityFixture.CAFE_LATTE.toEntity(ownerId)
+        );
+
+        @BeforeEach
+        void setup() {
+            products.forEach(productRepository::save);
+        }
+
+        @DisplayName("상품 이름을 검색하면")
+        @Nested
+        class WhenProductExists {
+
+            @DisplayName("해당하는 상품을 반환한다")
+            @Test
+            void itReturnsProductList() {
+                final List<Product> result = productRepository.findByOwnerIdAndName(ownerId, "초코라떼");
+
+                assertThat(result).hasSize(2);
+            }
+        }
+
+        @DisplayName("상품 이름 일부를 검색하면")
+        @Nested
+        class WhenProductExistsWithPart {
+
+            @DisplayName("해당하는 상품을 반환하지 않는다")
+            @Test
+            void itReturnsProductList() {
+                final List<Product> result = productRepository.findByOwnerIdAndName(ownerId, "초코");
+
                 assertThat(result).isEmpty();
             }
         }

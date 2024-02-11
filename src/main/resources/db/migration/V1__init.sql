@@ -30,6 +30,7 @@ create table product
     description     varchar(255),
     name            varchar(255),
     product_size    enum ('SMALL','LARGE'),
+    chosung         varchar(255) not null,
     primary key (id)
 );
 
@@ -38,3 +39,7 @@ alter table member
 
 create index IDXrmeql25277vk6we3pnf5qqlb2
     on product (owner_id);
+
+CREATE INDEX idx_product_chosung ON product (chosung);
+
+CREATE FULLTEXT INDEX idx_product_name ON product (name);
