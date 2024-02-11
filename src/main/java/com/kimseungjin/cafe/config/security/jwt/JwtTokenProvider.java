@@ -40,9 +40,6 @@ public class JwtTokenProvider {
     public void validateToken(final String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            if (blackListUtils.hasKey(token)) {
-                throw new InvalidTokenException();
-            }
         } catch (ExpiredJwtException | UnsupportedJwtException | IllegalStateException e) {
             throw new InvalidTokenException();
         }
@@ -100,20 +97,31 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(final String bearerToken) {
+        validateBlackList(bearerToken);
         final Optional<String> token = resolveToken(bearerToken);
 
         return token.map(
-                t -> {
-                    validateToken(t);
-                    final Claims claims = parseClaims(t);
-                    final List<SimpleGrantedAuthority> authorities = mapToAuthorities(claims);
-                    final UserDetails userDetails =
-                            userAuthDetailsService.loadUserByUsername(claims.getSubject());
+                        t -> {
+                            validateToken(t);
+                            return getAuthenticationToken(t);
+                        })
+                .orElseThrow(InvalidTokenException::new);
+    }
 
-                    return new UsernamePasswordAuthenticationToken(
-                            userDetails, userDetails.getPassword(), authorities);
-                }
-        ).orElseThrow(InvalidTokenException::new);
+    private UsernamePasswordAuthenticationToken getAuthenticationToken(final String t) {
+        final Claims claims = parseClaims(t);
+        final List<SimpleGrantedAuthority> authorities = mapToAuthorities(claims);
+        final UserDetails userDetails =
+                userAuthDetailsService.loadUserByUsername(claims.getSubject());
+
+        return new UsernamePasswordAuthenticationToken(
+                userDetails, userDetails.getPassword(), authorities);
+    }
+
+    private void validateBlackList(final String bearerToken) {
+        if (blackListUtils.hasKey(bearerToken)) {
+            throw new InvalidTokenException();
+        }
     }
 
     private List<SimpleGrantedAuthority> mapToAuthorities(final Claims claims) {

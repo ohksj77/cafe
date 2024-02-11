@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.UUID;
@@ -40,4 +41,14 @@ public interface MemberApi {
                 content = @Content(schema = @Schema(implementation = BaseResponse.class)))
     })
     BaseResponse<JwtToken> login(final CredentialRequest credentialRequest);
+
+    @Operation(summary = "로그아웃 API", description = "Jwt 토큰을 블랙리스트에 추가합니다.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = "요청 성공"),
+        @ApiResponse(
+                responseCode = "400",
+                description = "요청 데이터가 잘못되었습니다.")
+    })
+    @SecurityRequirement(name = "Authorization")
+    void logout(final String bearerToken);
 }
