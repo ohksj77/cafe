@@ -19,7 +19,8 @@ public enum ProductEntityFixture {
             "진한 초코가 들어간 라떼",
             "123456781",
             LocalDate.now().plusDays(7),
-            ProduceSize.SMALL),
+            ProduceSize.SMALL,
+            "ㅊㅋㄹㄸ"),
     CAFE_LATTE(
             UUID.randomUUID(),
             "음료",
@@ -29,7 +30,8 @@ public enum ProductEntityFixture {
             "시그니처 라떼",
             "123456782",
             LocalDate.now().minusDays(1),
-            ProduceSize.SMALL),
+            ProduceSize.SMALL,
+            "ㅋㅍㄹㄸ"),
     AMERICANO(
             UUID.randomUUID(),
             "음료",
@@ -39,7 +41,8 @@ public enum ProductEntityFixture {
             "고소한 아메리카노",
             "123456783",
             LocalDate.now().plusDays(3),
-            ProduceSize.LARGE);
+            ProduceSize.LARGE,
+            "ㅇㅁㄹㅋㄴ");
 
     private final UUID ownerId;
     private final String category;
@@ -50,6 +53,7 @@ public enum ProductEntityFixture {
     private final String barcode;
     private final LocalDate expirationDate;
     private final ProduceSize productSize;
+    private final String chosung;
 
     public Product toEntity() {
         return Product.builder()
@@ -62,6 +66,7 @@ public enum ProductEntityFixture {
                 .barcode(barcode)
                 .expirationDate(expirationDate)
                 .productSize(productSize)
+                .chosung(chosung)
                 .build();
     }
 
@@ -76,6 +81,7 @@ public enum ProductEntityFixture {
                 .barcode(barcode)
                 .expirationDate(expirationDate)
                 .productSize(productSize)
+                .chosung(chosung)
                 .build();
     }
 }

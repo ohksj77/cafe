@@ -20,7 +20,7 @@ public interface ProductRepository {
 
     List<Product> findAllByOwnerIdAndChosungContaining(final UUID ownerId, final String chosung);
 
-    List<Product> findAllByOwnerIdAndNameContaining(final UUID ownerId, final String name);
+    List<Product> findByOwnerIdAndNameContaining(final UUID ownerId, final String name);
 
-    List<Product> findAllByOwnerIdAndName(final UUID ownerId, final String name);
+    List<Product> findByOwnerIdAndName(final UUID ownerId, final String name);
 }

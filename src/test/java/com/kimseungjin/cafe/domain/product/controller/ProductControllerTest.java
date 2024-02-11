@@ -216,7 +216,7 @@ class ProductControllerTest extends ControllerTest {
 
         @BeforeEach
         void setup() {
-            when(productService.getProduct(id))
+            when(productService.getProductDetail(id))
                     .thenReturn(ProductDetailResponseFixture.RESPONSE1.toResponse());
         }
 
@@ -237,6 +237,36 @@ class ProductControllerTest extends ControllerTest {
                                                     + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
 
                 perform.andExpect(status().isOk()).andExpect(jsonPath("$.data").isMap());
+            }
+        }
+    }
+
+    @DisplayName("searchProduct 메소드는")
+    @Nested
+    class SearchProduct {
+
+        @DisplayName("정상적인 요청이 들어오면")
+        @Nested
+        class WhenRequestValid {
+
+            @BeforeEach
+            void setup() {
+                when(productService.searchProducts(any(String.class)))
+                        .thenReturn(ProductResponseFixture.toProductPageResponse().getProducts());
+            }
+
+            @DisplayName("상품 목록이 반환된다")
+            @Test
+            void searchProduct() throws Exception {
+                final ResultActions perform =
+                        mockMvc.perform(
+                                get("/products/search?q=검색어")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .header(
+                                                HttpHeaders.AUTHORIZATION,
+                                                "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
+
+                perform.andExpect(status().isOk()).andExpect(jsonPath("$.data").isArray());
             }
         }
     }

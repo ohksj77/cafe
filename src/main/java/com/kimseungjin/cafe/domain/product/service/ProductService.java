@@ -84,6 +84,7 @@ public class ProductService {
         return productMapper.toProductDetailResponse(product);
     }
 
+    @Transactional(readOnly = true)
     public List<ProductResponse> searchProducts(final String query) {
         final UUID ownerId = authService.getLoginUserId();
 
@@ -93,7 +94,7 @@ public class ProductService {
 
     private List<Product> getProducts(final UUID ownerId, final String query) {
         if (HangulUtils.isHangul(query)) {
-            return productRepository.findAllByOwnerIdAndNameContaining(ownerId, query);
+            return productRepository.findByOwnerIdAndNameContaining(ownerId, query);
         }
         return checkChosungAndGetProducts(ownerId, query);
     }
@@ -102,6 +103,6 @@ public class ProductService {
         if (HangulUtils.isChosung(query)) {
             return productRepository.findAllByOwnerIdAndChosungContaining(ownerId, query);
         }
-        return productRepository.findAllByOwnerIdAndName(ownerId, query);
+        return productRepository.findByOwnerIdAndName(ownerId, query);
     }
 }

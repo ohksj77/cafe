@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 import java.util.UUID;
 
-@Mapper(componentModel = ComponentModel.SPRING, uses = HangulUtils.class)
+@Mapper(componentModel = ComponentModel.SPRING, imports = HangulUtils.class)
 public interface ProductMapper {
 
     @Mapping(target = "ownerId", source = "ownerId")

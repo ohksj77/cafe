@@ -6,8 +6,10 @@ import static org.mockito.Mockito.when;
 
 import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
+import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.exception.OwnerMismatchException;
 import com.kimseungjin.cafe.domain.product.repository.ProductRepository;
+import com.kimseungjin.cafe.fixture.product.ProductEntityFixture;
 import com.kimseungjin.cafe.fixture.product.ProductRequestFixture;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 import com.kimseungjin.cafe.global.exception.EntityNotFoundException;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -249,6 +252,58 @@ class ProductServiceTest extends LoginTest {
             void itThrowsEntityNotFoundException() {
                 assertThatThrownBy(() -> productService.getProductDetail(UUID.randomUUID()))
                         .isInstanceOf(EntityNotFoundException.class);
+            }
+        }
+    }
+
+    @DisplayName("searchProducts 메서드는")
+    @Nested
+    class SearchProducts {
+
+        @BeforeEach
+        void setup() {
+            productRepository.save(ProductEntityFixture.CAFE_LATTE.toEntity(loginUser.getId()));
+        }
+
+        @DisplayName("초성 일부를 검색하면")
+        @Nested
+        class WhenSearchWithChosung {
+
+            private final String query = "ㅋㅍ";
+
+            @DisplayName("해당하는 상품을 반환한다")
+            @Test
+            void itReturnsProductList() {
+                final List<ProductResponse> productResponses = productService.searchProducts(query);
+                assertThat(productResponses).isNotEmpty();
+            }
+        }
+
+        @DisplayName("이름 일부를 검색하면")
+        @Nested
+        class WhenSearchWithName {
+
+            private final String query = "카페";
+
+            @DisplayName("해당하는 상품을 반환한다")
+            @Test
+            void itReturnsProductList() {
+                final List<ProductResponse> productResponses = productService.searchProducts(query);
+                assertThat(productResponses).isNotEmpty();
+            }
+        }
+
+        @DisplayName("한글이 아닌 검색어의 경우")
+        @Nested
+        class WhenSearchWithEnglish {
+
+            private final String query = "Latte";
+
+            @DisplayName("영어로 검색한 결과(정확히 일치하는 경우)를 반환한다")
+            @Test
+            void itReturnsProductList() {
+                final List<ProductResponse> productResponses = productService.searchProducts(query);
+                assertThat(productResponses).isEmpty();
             }
         }
     }
