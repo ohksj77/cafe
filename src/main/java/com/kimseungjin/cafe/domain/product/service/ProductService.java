@@ -57,6 +57,6 @@ public class ProductService {
         final Product product = getEntity(id);
         product.validateOwner(authService.getLoginUserId());
 
-        productRepository.remove(product);
+        productRepository.removeById(id);
     }
 }

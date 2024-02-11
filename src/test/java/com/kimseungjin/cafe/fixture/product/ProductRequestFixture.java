@@ -17,7 +17,18 @@ public enum ProductRequestFixture {
             "진한 초코가 들어간 라떼",
             "123456789",
             LocalDate.now().plusDays(7),
+            ProduceSize.LARGE),
+
+    SUCCESS_REQUEST2(
+            "음료",
+            4000,
+            2000,
+            "카페라떼",
+            "시그니처 라떼",
+            "123456711",
+            LocalDate.now().plusDays(7),
             ProduceSize.SMALL),
+
     FAILURE_REQUEST1(
             "음료",
             5000,
