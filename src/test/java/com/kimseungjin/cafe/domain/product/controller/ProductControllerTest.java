@@ -216,7 +216,8 @@ class ProductControllerTest extends ControllerTest {
 
         @BeforeEach
         void setup() {
-            when(productService.getProduct(id)).thenReturn(ProductDetailResponseFixture.RESPONSE1.toResponse());
+            when(productService.getProduct(id))
+                    .thenReturn(ProductDetailResponseFixture.RESPONSE1.toResponse());
         }
 
         @DisplayName("정상적인 요청이 들어오면")

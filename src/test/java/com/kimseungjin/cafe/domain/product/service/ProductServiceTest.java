@@ -227,7 +227,9 @@ class ProductServiceTest extends LoginTest {
 
             @BeforeEach
             void setup() {
-                final IdResponse<UUID> result = productService.registerProduct(ProductRequestFixture.SUCCESS_REQUEST1.toRequest());
+                final IdResponse<UUID> result =
+                        productService.registerProduct(
+                                ProductRequestFixture.SUCCESS_REQUEST1.toRequest());
                 productId = result.getId();
             }
 

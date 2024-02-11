@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public enum ProductDetailResponseFixture {
-
     RESPONSE1(
             UUID.randomUUID(),
             "음료",
