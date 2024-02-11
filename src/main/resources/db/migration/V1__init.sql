@@ -12,7 +12,7 @@ create table member
     phone_number varchar(255) not null,
     role         enum ('ROLE_ADMIN','ROLE_USER') not null,
     primary key (id)
-);
+) DEFAULT CHARACTER SET UTF8;
 
 create table product
 (
@@ -32,7 +32,7 @@ create table product
     product_size    enum ('SMALL','LARGE'),
     chosung         varchar(255) not null,
     primary key (id)
-);
+) DEFAULT CHARACTER SET UTF8;
 
 alter table member
     add constraint UK_n2qryhkfoqeel6njfhrcq6k7u unique (phone_number);

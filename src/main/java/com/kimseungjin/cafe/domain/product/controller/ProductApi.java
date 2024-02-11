@@ -50,7 +50,7 @@ public interface ProductApi {
     @SecurityRequirement(name = "Authorization")
     void updateProduct(final UUID id, final ProductRequest productRequest);
 
-    @Operation(summary = "상품 수정 API", description = "상품을 삭제합니다.")
+    @Operation(summary = "상품 삭제 API", description = "상품을 삭제합니다.")
     @ApiResponse(responseCode = "204", description = "요청 성공")
     @ApiResponse(
             responseCode = "400",
@@ -90,6 +90,7 @@ public interface ProductApi {
             responseCode = "401",
             description = "인증 정보가 잘못되었습니다.",
             content = @Content(schema = @Schema(implementation = BaseResponse.class)))
+    @SecurityRequirement(name = "Authorization")
     BaseResponse<ProductDetailResponse> getProductDetail(final UUID id);
 
     @Operation(summary = "상품 검색 API", description = "상품을 검색합니다.")
@@ -102,5 +103,6 @@ public interface ProductApi {
             responseCode = "401",
             description = "인증 정보가 잘못되었습니다.",
             content = @Content(schema = @Schema(implementation = BaseResponse.class)))
+    @SecurityRequirement(name = "Authorization")
     BaseResponse<List<ProductResponse>> searchProducts(final String query);
 }
