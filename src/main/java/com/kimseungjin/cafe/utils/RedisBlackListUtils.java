@@ -4,13 +4,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisBlackListUtils implements BlackListUtils {
 
     private static final long ACCESS_TOKEN_EXPIRE_HOUR = 1L;
+    private static final String EMPTY_VALUE = "";
     private final RedisTemplate<String, String> redisBlackListTemplate;
 
     public RedisBlackListUtils(final RedisTemplate<String, String> redisBlackListTemplate) {
@@ -18,10 +18,10 @@ public class RedisBlackListUtils implements BlackListUtils {
     }
 
     @Override
-    public void add(final String accessToken, final UUID memberId) {
+    public void add(final String accessToken) {
         redisBlackListTemplate
                 .opsForValue()
-                .set(accessToken, memberId.toString(), ACCESS_TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
+                .set(accessToken, EMPTY_VALUE, ACCESS_TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
     }
 
     @Override

@@ -10,11 +10,14 @@ import com.kimseungjin.cafe.domain.member.service.AuthService;
 import com.kimseungjin.cafe.fixture.member.MemberEntityFixture;
 import com.kimseungjin.cafe.support.database.DatabaseSweepTest;
 import com.kimseungjin.cafe.support.database.FlywayDisableTest;
+import com.kimseungjin.cafe.support.utils.TestBlackListUtils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 
+@Import(TestBlackListUtils.class)
 @DatabaseTest
 @DatabaseSweepTest
 public abstract class LoginTest extends FlywayDisableTest {

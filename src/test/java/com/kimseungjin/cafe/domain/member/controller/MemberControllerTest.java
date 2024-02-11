@@ -161,4 +161,38 @@ class MemberControllerTest extends ControllerTest {
             }
         }
     }
+
+    @DisplayName("logout 메소드는")
+    @Nested
+    class Logout {
+
+        @DisplayName("정상적인 요청이 들어오면")
+        @Nested
+        class WhenRequestIsValid {
+
+            @DisplayName("로그아웃이 된다")
+            @Test
+            void logout() throws Exception {
+                final ResultActions perform =
+                        mockMvc.perform(
+                                post("/members/logout")
+                                        .header("Authorization", "Bearer token"));
+
+                perform.andExpect(status().isNoContent());
+            }
+        }
+
+        @DisplayName("토큰없이 요청시")
+        @Nested
+        class WhenRequestWithNoToken {
+
+            @DisplayName("400 에러가 발생한다")
+            @Test
+            void logoutFailed() throws Exception {
+                final ResultActions perform = mockMvc.perform(post("/members/logout"));
+
+                perform.andExpect(status().isBadRequest());
+            }
+        }
+    }
 }

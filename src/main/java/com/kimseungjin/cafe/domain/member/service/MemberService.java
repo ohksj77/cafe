@@ -8,6 +8,7 @@ import com.kimseungjin.cafe.domain.member.exception.PhoneNumberAlreadyExistsExce
 import com.kimseungjin.cafe.domain.member.mapper.MemberMapper;
 import com.kimseungjin.cafe.domain.member.repository.MemberRepository;
 import com.kimseungjin.cafe.global.dto.IdResponse;
+import com.kimseungjin.cafe.utils.BlackListUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final AuthService authService;
+    private final BlackListUtils blackListUtils;
 
     public IdResponse<UUID> signup(final CredentialRequest credentialRequest) {
         validatePhoneNumberExists(credentialRequest);
@@ -51,5 +53,9 @@ public class MemberService {
         return memberRepository
                 .findByLoginInfoPhoneNumber(credentialRequest.getPhoneNumber())
                 .orElseThrow(LoginFailedException::new);
+    }
+
+    public void logout(final String bearerToken) {
+        blackListUtils.add(bearerToken);
     }
 }

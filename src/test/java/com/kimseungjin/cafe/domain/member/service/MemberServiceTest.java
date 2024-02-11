@@ -11,6 +11,7 @@ import com.kimseungjin.cafe.domain.member.repository.MemberRepository;
 import com.kimseungjin.cafe.fixture.member.CredentialRequestFixture;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 import com.kimseungjin.cafe.support.service.LoginTest;
+import com.kimseungjin.cafe.utils.BlackListUtils;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ class MemberServiceTest extends LoginTest {
 
     @Autowired private MemberService memberService;
     @Autowired private MemberRepository memberRepository;
+    @Autowired private BlackListUtils blackListUtils;
 
     @DisplayName("signup 메소드는")
     @Nested
@@ -123,6 +125,34 @@ class MemberServiceTest extends LoginTest {
             void throwLoginFailedException() {
                 assertThatThrownBy(() -> memberService.login(wrongPassword))
                         .isInstanceOf(LoginFailedException.class);
+            }
+        }
+    }
+
+    @DisplayName("logout 메소드는")
+    @Nested
+    class Logout {
+
+        private final CredentialRequest credentialRequest =
+                CredentialRequestFixture.SUCCESS1.toRequest();
+
+        @BeforeEach
+        void setup() {
+            memberService.signup(credentialRequest);
+        }
+
+        @DisplayName("정상적인 요청이 들어오면")
+        @Nested
+        class WhenRequestIsValid {
+
+            @DisplayName("Jwt 토큰이 블랙리스트에 추가된다")
+            @Test
+            void addTokenToBlackList() {
+                final JwtToken jwtToken = memberService.login(credentialRequest);
+                final String token = jwtToken.getAccessToken();
+                memberService.logout(token);
+
+                assertThat(blackListUtils.hasKey(token)).isTrue();
             }
         }
     }
