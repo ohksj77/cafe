@@ -45,10 +45,10 @@ public interface MemberApi {
     @Operation(summary = "로그아웃 API", description = "Jwt 토큰을 블랙리스트에 추가합니다.")
     @ApiResponses({
         @ApiResponse(responseCode = "204", description = "요청 성공"),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "요청 데이터가 잘못되었습니다.",
-                    content = @Content(schema = @Schema(implementation = BaseResponse.class)))
+        @ApiResponse(
+                responseCode = "400",
+                description = "요청 데이터가 잘못되었습니다.",
+                content = @Content(schema = @Schema(implementation = BaseResponse.class)))
     })
     @SecurityRequirement(name = "Authorization")
     void logout(final String bearerToken);
