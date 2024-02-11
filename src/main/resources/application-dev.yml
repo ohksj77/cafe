@@ -31,6 +31,9 @@ spring:
     redis:
       host: localhost
       port: 6379
+    web:
+      pageable:
+        default-page-size: 10
 
 token:
   secret-key: aslalijhsdfgbakujshdfgaksujdhfg238475rghwegfajhsdfgjasdhfg82347asggasgadsfgagasdghjmhdev43214321asdfasdfqqqqrtfffdbv245tdfzg
