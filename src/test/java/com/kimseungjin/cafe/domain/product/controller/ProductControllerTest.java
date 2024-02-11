@@ -202,7 +202,7 @@ class ProductControllerTest extends ControllerTest {
                                                     + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
 
                 perform.andExpect(status().isOk())
-                        .andExpect(jsonPath("$.data").isArray());
+                        .andExpect(jsonPath("$.data.products").isArray());
             }
         }
     }
