@@ -35,6 +35,8 @@ public class ProductService {
     @Transactional
     public void updateProduct(final UUID id, final ProductRequest productRequest) {
         final Product product = getEntity(id);
+        product.validateOwner(authService.getLoginUserId());
+
         product.update(
                 productRequest.getCategory(),
                 productRequest.getPrice(),
