@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 
 import lombok.*;
 
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SoftDelete;
 
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Getter
 @Entity
 @SoftDelete
+@SQLDelete(sql = "UPDATE product SET deleted = true WHERE id = ?")
 @EqualsAndHashCode(of = "id")
 @EntityListeners(AuditListener.class)
 @Table(indexes = @Index(columnList = "ownerId"))
