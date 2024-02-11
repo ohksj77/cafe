@@ -118,7 +118,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("상품 10개를 반환한다")
             @Test
             void itReturnsProductList() {
-                final Page<Product> result = productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(0));
+                final Page<Product> result =
+                        productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(0));
                 assertThat(result.hasNext()).isTrue();
                 assertThat(result.getContent()).hasSize(10);
             }
@@ -131,7 +132,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("상품 1개 이상 10개 이하를 반환한다")
             @Test
             void itReturnsProductList() {
-                final Page<Product> result = productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(1));
+                final Page<Product> result =
+                        productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(1));
                 assertThat(result.hasNext()).isFalse();
                 assertThat(result.getContent()).hasSizeBetween(1, 10);
             }
@@ -144,7 +146,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("상품 0개를 반환한다")
             @Test
             void itReturnsProductList() {
-                final Page<Product> result = productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(2));
+                final Page<Product> result =
+                        productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(2));
                 assertThat(result).isEmpty();
             }
         }

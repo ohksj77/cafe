@@ -186,7 +186,8 @@ class ProductControllerTest extends ControllerTest {
 
             @BeforeEach
             void setup() {
-                when(productService.getProducts(any(Integer.class))).thenReturn(ProductResponseFixture.toProductPageResponse());
+                when(productService.getProducts(any(Integer.class)))
+                        .thenReturn(ProductResponseFixture.toProductPageResponse());
             }
 
             @DisplayName("상품 목록이 반환된다")
@@ -201,8 +202,7 @@ class ProductControllerTest extends ControllerTest {
                                                 "Bearer"
                                                     + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
 
-                perform.andExpect(status().isOk())
-                        .andExpect(jsonPath("$.data.products").isArray());
+                perform.andExpect(status().isOk()).andExpect(jsonPath("$.data.products").isArray());
             }
         }
     }

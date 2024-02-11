@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 public enum ProductResponseFixture {
-
     APPLE_JUICE(UUID.randomUUID(), "사과주스", 3000, "음료"),
     ORANGE_JUICE(UUID.randomUUID(), "오렌지주스", 3000, "음료"),
     AMERICANO(UUID.randomUUID(), "아메리카노", 3500, "커피");
@@ -21,15 +20,15 @@ public enum ProductResponseFixture {
     private final String category;
 
     public ProductResponse toResponse() {
-        return ProductResponse.builder()
-                .id(id)
-                .name(name)
-                .price(price)
-                .category(category)
-                .build();
+        return ProductResponse.builder().id(id).name(name).price(price).category(category).build();
     }
 
     public static ProductPageResponse toProductPageResponse() {
-        return new ProductPageResponse(List.of(APPLE_JUICE.toResponse(), ORANGE_JUICE.toResponse(), AMERICANO.toResponse()), true);
+        return new ProductPageResponse(
+                List.of(
+                        APPLE_JUICE.toResponse(),
+                        ORANGE_JUICE.toResponse(),
+                        AMERICANO.toResponse()),
+                true);
     }
 }

@@ -66,7 +66,8 @@ public class ProductService {
     @Transactional(readOnly = true)
     public ProductPageResponse getProducts(final Integer page) {
         final UUID ownerId = authService.getLoginUserId();
-        final Page<Product> products = productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(page));
+        final Page<Product> products =
+                productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(page));
 
         return productMapper.toProductPageResponse(products);
     }

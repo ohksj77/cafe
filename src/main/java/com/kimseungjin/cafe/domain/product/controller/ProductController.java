@@ -50,7 +50,8 @@ public class ProductController implements ProductApi {
     @Override
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<ProductPageResponse> getProducts(@RequestParam(name = "page", defaultValue = "0") final Integer page) {
+    public BaseResponse<ProductPageResponse> getProducts(
+            @RequestParam(name = "page", defaultValue = "0") final Integer page) {
         return BaseResponse.successOf(HttpStatus.OK, productService.getProducts(page));
     }
 }
