@@ -17,7 +17,7 @@ public enum ProductEntityFixture {
             3000,
             "초코라떼",
             "진한 초코가 들어간 라떼",
-            "123456789",
+            "123456781",
             LocalDate.now().plusDays(7),
             ProduceSize.SMALL),
     CAFE_LATTE(
@@ -27,9 +27,19 @@ public enum ProductEntityFixture {
             3000,
             "카페라떼",
             "시그니처 라떼",
-            "123456789",
+            "123456782",
             LocalDate.now().minusDays(1),
-            ProduceSize.SMALL);
+            ProduceSize.SMALL),
+    AMERICANO(
+            UUID.randomUUID(),
+            "음료",
+            4000,
+            2000,
+            "아메리카노",
+            "고소한 아메리카노",
+            "123456783",
+            LocalDate.now().plusDays(3),
+            ProduceSize.LARGE);
 
     private final UUID ownerId;
     private final String category;

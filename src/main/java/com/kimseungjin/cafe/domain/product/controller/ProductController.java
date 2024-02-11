@@ -1,7 +1,7 @@
 package com.kimseungjin.cafe.domain.product.controller;
 
+import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
-import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.service.ProductService;
 import com.kimseungjin.cafe.global.dto.BaseResponse;
 import com.kimseungjin.cafe.global.dto.IdResponse;
@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -51,7 +50,7 @@ public class ProductController implements ProductApi {
     @Override
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<List<ProductResponse>> getProducts(@RequestParam(name = "page", defaultValue = "0") final Integer page) {
+    public BaseResponse<ProductPageResponse> getProducts(@RequestParam(name = "page", defaultValue = "0") final Integer page) {
         return BaseResponse.successOf(HttpStatus.OK, productService.getProducts(page));
     }
 }

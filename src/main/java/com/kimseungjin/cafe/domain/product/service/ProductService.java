@@ -1,8 +1,8 @@
 package com.kimseungjin.cafe.domain.product.service;
 
 import com.kimseungjin.cafe.domain.member.service.AuthService;
+import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
-import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.entity.Product;
 import com.kimseungjin.cafe.domain.product.mapper.ProductMapper;
 import com.kimseungjin.cafe.domain.product.repository.ProductRepository;
@@ -12,10 +12,10 @@ import com.kimseungjin.cafe.utils.PageableUtils;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -64,10 +64,10 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductResponse> getProducts(final Integer page) {
+    public ProductPageResponse getProducts(final Integer page) {
         final UUID ownerId = authService.getLoginUserId();
-        final List<Product> products = productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(page));
+        final Page<Product> products = productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(page));
 
-        return productMapper.toResponses(products);
+        return productMapper.toProductPageResponse(products);
     }
 }

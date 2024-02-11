@@ -1,7 +1,7 @@
 package com.kimseungjin.cafe.domain.product.controller;
 
+import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
-import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.global.dto.BaseResponse;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 
@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.ErrorResponse;
 
-import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Product")
@@ -78,5 +77,5 @@ public interface ProductApi {
             description = "인증 정보가 잘못되었습니다.",
             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     @SecurityRequirement(name = "Authorization")
-    BaseResponse<List<ProductResponse>> getProducts(final Integer page);
+    BaseResponse<ProductPageResponse> getProducts(final Integer page);
 }

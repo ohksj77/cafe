@@ -1,5 +1,6 @@
 package com.kimseungjin.cafe.domain.product.mapper;
 
+import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
 import com.kimseungjin.cafe.domain.product.dto.ProductResponse;
 import com.kimseungjin.cafe.domain.product.entity.Product;
@@ -8,6 +9,8 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants.ComponentModel;
+import org.mapstruct.Named;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,6 +29,11 @@ public interface ProductMapper {
     @Mapping(target = "productSize", source = "productRequest.productSize")
     Product toEntity(final ProductRequest productRequest, final UUID ownerId);
 
+    @Mapping(target = "products", source = "products.content", qualifiedByName = "toResponses")
+    @Mapping(target = "hasNext", expression = "java(products.hasNext())")
+    ProductPageResponse toProductPageResponse(final Page<Product> products);
+
+    @Named("toResponses")
     @IterableMapping(elementTargetType = ProductResponse.class)
     List<ProductResponse> toResponses(final List<Product> products);
 
