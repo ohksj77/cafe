@@ -50,11 +50,9 @@ class ProductServiceTest extends LoginTest {
     class UpdateProduct {
 
         private UUID beforeId;
-        private final ProductRequest before =
-                ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
+        private final ProductRequest before = ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
 
-        private final ProductRequest after =
-                ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
+        private final ProductRequest after = ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
 
         @DisplayName("상품이 존재하면")
         @Nested
@@ -112,7 +110,8 @@ class ProductServiceTest extends LoginTest {
     class RemoveProduct {
 
         private UUID productId;
-        private final ProductRequest productRequest = ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
+        private final ProductRequest productRequest =
+                ProductRequestFixture.SUCCESS_REQUEST1.toRequest();
 
         @DisplayName("상품이 존재하면")
         @Nested

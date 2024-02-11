@@ -89,7 +89,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("아무것도 하지 않는다")
             @Test
             void itDoesNothing() {
-                assertThatNoException().isThrownBy(() -> productRepository.removeById(UUID.randomUUID()));
+                assertThatNoException()
+                        .isThrownBy(() -> productRepository.removeById(UUID.randomUUID()));
             }
         }
     }

@@ -50,7 +50,8 @@ class MemberRepositoryTest extends RepositoryTest {
             @DisplayName("false를 반환한다")
             @Test
             void returnFalse() {
-                final boolean isExists = memberRepository.existsByLoginCredentialsPhoneNumber(phoneNumber);
+                final boolean isExists =
+                        memberRepository.existsByLoginCredentialsPhoneNumber(phoneNumber);
                 assertThat(isExists).isFalse();
             }
         }
@@ -76,7 +77,8 @@ class MemberRepositoryTest extends RepositoryTest {
             void returnMember() {
                 final Member foundMember =
                         memberRepository
-                                .findByLoginCredentialsPhoneNumber(member.getLoginCredentials().getPhoneNumber())
+                                .findByLoginCredentialsPhoneNumber(
+                                        member.getLoginCredentials().getPhoneNumber())
                                 .orElseThrow();
                 assertThat(foundMember).isEqualTo(member);
             }
@@ -91,7 +93,8 @@ class MemberRepositoryTest extends RepositoryTest {
             @DisplayName("빈 Optional을 반환한다")
             @Test
             void returnEmptyOptional() {
-                final var foundMember = memberRepository.findByLoginCredentialsPhoneNumber(phoneNumber);
+                final var foundMember =
+                        memberRepository.findByLoginCredentialsPhoneNumber(phoneNumber);
                 assertThat(foundMember).isEmpty();
             }
         }
