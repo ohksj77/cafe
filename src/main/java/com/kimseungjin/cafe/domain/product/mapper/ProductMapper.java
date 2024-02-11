@@ -29,7 +29,9 @@ public interface ProductMapper {
     @Mapping(target = "barcode", source = "productRequest.barcode")
     @Mapping(target = "expirationDate", source = "productRequest.expirationDate")
     @Mapping(target = "productSize", source = "productRequest.productSize")
-    @Mapping(target = "chosung", expression = "java(HangulUtils.decompose(productRequest.getName()))")
+    @Mapping(
+            target = "chosung",
+            expression = "java(HangulUtils.decompose(productRequest.getName()))")
     Product toEntity(final ProductRequest productRequest, final UUID ownerId);
 
     @Mapping(target = "products", source = "products.content", qualifiedByName = "toResponses")

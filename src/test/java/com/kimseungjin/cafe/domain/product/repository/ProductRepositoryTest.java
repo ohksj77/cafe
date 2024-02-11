@@ -159,11 +159,11 @@ class ProductRepositoryTest extends RepositoryTest {
     class FindAllByOwnerIdAndChosungContaining {
 
         private final UUID ownerId = UUID.randomUUID();
-        private final List<Product> products = List.of(
-                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
-                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
-                ProductEntityFixture.CAFE_LATTE.toEntity(ownerId)
-        );
+        private final List<Product> products =
+                List.of(
+                        ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                        ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                        ProductEntityFixture.CAFE_LATTE.toEntity(ownerId));
 
         @BeforeEach
         void setup() {
@@ -177,7 +177,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("해당하는 상품을 반환한다")
             @Test
             void itReturnsProductList() {
-                final List<Product> result = productRepository.findAllByOwnerIdAndChosungContaining(ownerId, "ㅊㅋ");
+                final List<Product> result =
+                        productRepository.findAllByOwnerIdAndChosungContaining(ownerId, "ㅊㅋ");
 
                 assertThat(result).hasSize(2);
             }
@@ -190,7 +191,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("해당하는 모든 상품을 반환한다")
             @Test
             void itReturnsProductList() {
-                final List<Product> result = productRepository.findAllByOwnerIdAndChosungContaining(ownerId, "ㄹㄸ");
+                final List<Product> result =
+                        productRepository.findAllByOwnerIdAndChosungContaining(ownerId, "ㄹㄸ");
 
                 assertThat(result).hasSize(3);
             }
@@ -202,11 +204,11 @@ class ProductRepositoryTest extends RepositoryTest {
     class FindAllByOwnerIdAndNameContaining {
 
         private final UUID ownerId = UUID.randomUUID();
-        private final List<Product> products = List.of(
-                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
-                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
-                ProductEntityFixture.CAFE_LATTE.toEntity(ownerId)
-        );
+        private final List<Product> products =
+                List.of(
+                        ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                        ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                        ProductEntityFixture.CAFE_LATTE.toEntity(ownerId));
 
         @BeforeEach
         void setup() {
@@ -220,7 +222,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("해당하는 상품을 반환한다")
             @Test
             void itReturnsProductList() {
-                final List<Product> result = productRepository.findByOwnerIdAndNameContaining(ownerId, "초코");
+                final List<Product> result =
+                        productRepository.findByOwnerIdAndNameContaining(ownerId, "초코");
 
                 assertThat(result).hasSize(2);
             }
@@ -233,7 +236,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("해당하는 모든 상품을 반환한다")
             @Test
             void itReturnsProductList() {
-                final List<Product> result = productRepository.findByOwnerIdAndNameContaining(ownerId, "라떼");
+                final List<Product> result =
+                        productRepository.findByOwnerIdAndNameContaining(ownerId, "라떼");
 
                 assertThat(result).hasSize(3);
             }
@@ -245,11 +249,11 @@ class ProductRepositoryTest extends RepositoryTest {
     class FindAllByOwnerIdAndName {
 
         private final UUID ownerId = UUID.randomUUID();
-        private final List<Product> products = List.of(
-                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
-                ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
-                ProductEntityFixture.CAFE_LATTE.toEntity(ownerId)
-        );
+        private final List<Product> products =
+                List.of(
+                        ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                        ProductEntityFixture.CHOCO_LATTE.toEntity(ownerId),
+                        ProductEntityFixture.CAFE_LATTE.toEntity(ownerId));
 
         @BeforeEach
         void setup() {
@@ -263,7 +267,8 @@ class ProductRepositoryTest extends RepositoryTest {
             @DisplayName("해당하는 상품을 반환한다")
             @Test
             void itReturnsProductList() {
-                final List<Product> result = productRepository.findByOwnerIdAndName(ownerId, "초코라떼");
+                final List<Product> result =
+                        productRepository.findByOwnerIdAndName(ownerId, "초코라떼");
 
                 assertThat(result).hasSize(2);
             }

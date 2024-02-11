@@ -68,7 +68,8 @@ public class ProductController implements ProductApi {
     @Override
     @GetMapping("search")
     @ResponseStatus(HttpStatus.OK)
-    public BaseResponse<List<ProductResponse>> searchProducts(@RequestParam("q") final String query) {
+    public BaseResponse<List<ProductResponse>> searchProducts(
+            @RequestParam("q") final String query) {
         return BaseResponse.successOf(HttpStatus.OK, productService.searchProducts(query));
     }
 }

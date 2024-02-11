@@ -1,6 +1,5 @@
 package com.kimseungjin.cafe.utils;
 
-
 public class HangulUtils {
 
     private static final char START_CHAR = '가';

@@ -264,7 +264,8 @@ class ProductControllerTest extends ControllerTest {
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .header(
                                                 HttpHeaders.AUTHORIZATION,
-                                                "Bearer asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
+                                                "Bearer"
+                                                    + " asdfawefawef.awfeagrersghserth.heatrhareweahearhear"));
 
                 perform.andExpect(status().isOk()).andExpect(jsonPath("$.data").isArray());
             }
