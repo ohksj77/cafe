@@ -21,7 +21,7 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final AuthService authService;
 
-    public IdResponse<UUID> createProduct(final ProductRequest productRequest) {
+    public IdResponse<UUID> registerProduct(final ProductRequest productRequest) {
         final UUID ownerId = authService.getLoginUserId();
         final Product product = productMapper.toEntity(productRequest, ownerId);
         final UUID id = productRepository.save(product).getId();

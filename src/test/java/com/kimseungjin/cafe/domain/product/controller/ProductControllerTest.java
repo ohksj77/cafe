@@ -34,13 +34,13 @@ class ProductControllerTest extends ControllerTest {
 
     @DisplayName("createProduct 메소드는")
     @Nested
-    class CreateProduct {
+    class RegisterProduct {
 
         private final IdResponse<UUID> expected = new IdResponse<>(UUID.randomUUID());
 
         @BeforeEach
         void setup() {
-            when(productService.createProduct(any(ProductRequest.class))).thenReturn(expected);
+            when(productService.registerProduct(any(ProductRequest.class))).thenReturn(expected);
         }
 
         @DisplayName("정상적인 요청이 들어오면")

@@ -35,5 +35,5 @@ public interface ProductApi {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @SecurityRequirement(name = "Authorization")
-    BaseResponse<IdResponse<UUID>> createProduct(@RequestBody @Valid final ProductRequest productRequest);
+    BaseResponse<IdResponse<UUID>> registerProduct(@RequestBody @Valid final ProductRequest productRequest);
 }

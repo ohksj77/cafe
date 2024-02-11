@@ -23,7 +23,7 @@ public class ProductController implements ProductApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BaseResponse<IdResponse<UUID>> createProduct(@RequestBody @Valid final ProductRequest productRequest) {
-        return BaseResponse.successOf(HttpStatus.CREATED, productService.createProduct(productRequest));
+    public BaseResponse<IdResponse<UUID>> registerProduct(@RequestBody @Valid final ProductRequest productRequest) {
+        return BaseResponse.successOf(HttpStatus.CREATED, productService.registerProduct(productRequest));
     }
 }

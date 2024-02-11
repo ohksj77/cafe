@@ -20,7 +20,7 @@ class ProductServiceTest extends LoginTest {
 
     @DisplayName("createProduct 메서드는")
     @Nested
-    class CreateProduct {
+    class RegisterProduct {
 
         @DisplayName("ProductRequest가 정상적인 경우")
         @Nested
@@ -32,7 +32,7 @@ class ProductServiceTest extends LoginTest {
             @DisplayName("상품이 저장된다")
             @Test
             void createProduct() {
-                final IdResponse<UUID> idResponse = productService.createProduct(productRequest);
+                final IdResponse<UUID> idResponse = productService.registerProduct(productRequest);
                 assertThat(idResponse.getId()).isNotNull();
             }
         }
