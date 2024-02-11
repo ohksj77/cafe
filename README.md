@@ -104,10 +104,11 @@
 - [예시: MemberRepository.java](./src/main/java/com/kimseungjin/cafe/domain/member/repository/MemberRepository.java)
 
 <details>
-<summary>커버리지 80퍼센트 목표의 테스트 코드 작성</summary>
+<summary>커버리지 80퍼센트 목표의 DCI 패턴의 테스트 코드 작성</summary>
 <div markdown="1">
 
 - controller, service, repository에 대한 테스트 코드 작성하여 커버리지 80퍼센트 달성
+- 테스트 코드 작성시 DCI 패턴을 사용하여 테스트 코드의 가독성과 유지보수성 향상
 
 </div>
 </details>
@@ -146,6 +147,10 @@ docker-compose up
 1-2. 미리 빌드해둔 Jib 이미지로 실행
 ```
 docker-compose -f docker-compose-jib.yml up
+```
+1-3. 백엔드 서버 제외한 도커 실행 (백엔드 서버는 인텔리제이로 실행)
+```
+docker-compose -f docker-compose.dev.yml up
 ```
 
 ### 실행시 유의 사항
