@@ -1,5 +1,6 @@
 package com.kimseungjin.cafe.domain.product.controller;
 
+import com.kimseungjin.cafe.domain.product.dto.ProductDetailResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
 import com.kimseungjin.cafe.domain.product.service.ProductService;
@@ -53,5 +54,12 @@ public class ProductController implements ProductApi {
     public BaseResponse<ProductPageResponse> getProducts(
             @RequestParam(name = "page", defaultValue = "0") final Integer page) {
         return BaseResponse.successOf(HttpStatus.OK, productService.getProducts(page));
+    }
+
+    @Override
+    @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse<ProductDetailResponse> getProductDetail(@PathVariable("id") final UUID id) {
+        return BaseResponse.successOf(HttpStatus.OK, productService.getProduct(id));
     }
 }

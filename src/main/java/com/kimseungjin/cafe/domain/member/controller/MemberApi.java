@@ -12,8 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import org.springframework.web.ErrorResponse;
-
 import java.util.UUID;
 
 @Tag(name = "Member")
@@ -48,7 +46,7 @@ public interface MemberApi {
     @ApiResponse(
             responseCode = "401",
             description = "인증 정보가 잘못되었습니다.",
-            content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+            content = @Content(schema = @Schema(implementation = BaseResponse.class)))
     @SecurityRequirement(name = "Authorization")
     void logout(final String bearerToken);
 }

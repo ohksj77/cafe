@@ -1,6 +1,7 @@
 package com.kimseungjin.cafe.domain.product.service;
 
 import com.kimseungjin.cafe.domain.member.service.AuthService;
+import com.kimseungjin.cafe.domain.product.dto.ProductDetailResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductPageResponse;
 import com.kimseungjin.cafe.domain.product.dto.ProductRequest;
 import com.kimseungjin.cafe.domain.product.entity.Product;
@@ -70,5 +71,13 @@ public class ProductService {
                 productRepository.findAllByOwnerId(ownerId, PageableUtils.pageableFrom(page));
 
         return productMapper.toProductPageResponse(products);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductDetailResponse getProduct(final UUID id) {
+        final Product product = getEntity(id);
+        product.validateOwner(authService.getLoginUserId());
+
+        return productMapper.toProductDetailResponse(product);
     }
 }
