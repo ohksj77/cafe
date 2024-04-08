@@ -14,7 +14,7 @@ public interface JpaProductRepository extends JpaRepository<Product, UUID>, Prod
     @Query(
             value =
                     "SELECT * FROM product p WHERE p.owner_id = :ownerId AND MATCH(p.name)"
-                        + " AGAINST(:name IN BOOLEAN MODE)",
+                            + " AGAINST(:name IN BOOLEAN MODE)",
             nativeQuery = true)
     List<Product> findByOwnerIdAndNameContaining(
             @Param("ownerId") final UUID ownerId, @Param("name") final String name);
