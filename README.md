@@ -107,7 +107,7 @@
 <summary>커버리지 80퍼센트 목표의 DCI 패턴의 테스트 코드 작성</summary>
 <div markdown="1">
 
-- controller, service, repository에 대한 테스트 코드 작성하여 커버리지 80퍼센트 달성
+- controller, service, repository에 대한 테스트 코드 작성하여 커버리지 93퍼센트 달성
 - 테스트 코드 작성시 DCI 패턴을 사용하여 테스트 코드의 가독성과 유지보수성 향상
 
 </div>
@@ -174,7 +174,9 @@ password: 1234
 
 ## Jacoco 실행 방법
 1. 인텔리제이에서 build.gradle 파일의 line 103에 위치한 jacocoTestReport를 실행합니다.
+
 ![](./docs/jacoco-execute.png)
+
 2. 다음 경로에 생성된 index.html을 확인합니다.
 
 [./build/reports/jacoco/test/html/](./build/reports/jacoco/test/html/)
