@@ -17,7 +17,7 @@
 </div>
 </details>
 
-- [예시: RedisBlackListUtils.java](./src/main/java/com/kimseungjin/cafe/utils/RedisBlackListUtils.java)
+- [예시: V1__init.sql](./src/main/resources/db/migration/V1__init.sql)
 
 <details>
 <summary>Redis를 통한 jwt 토큰 블랙리스트 구현</summary>
@@ -48,13 +48,13 @@
 <div markdown="1">
 
 - DB에 저장시 암호화 Converter로 자동화
-- 조회시 자동으로 복호화되어 조회되도로고 구현
+- 조회시 자동으로 복호화되어 조회되도록 구현
 
 </div>
 </details>
 
 - [예시: EncryptConverter.java](./src/main/java/com/kimseungjin/cafe/config/converter/EncryptConverter.java)
-- [예시: Member.java](./src/main/java/com/kimseungjin/cafe/domain/member/entity/Member.java)
+- [예시: LoginCredentials.java](./src/main/java/com/kimseungjin/cafe/domain/member/entity/LoginCredentials.java)
 
 <details>
 <summary>AOP 로깅</summary>
@@ -134,6 +134,7 @@
 - swagger: api 문서화
 - Flyway
 - Jacoco
+- Redis
 - Github Actions
     - cafe-ci-build.yml: 테스트와 jib 빌드 자동화
     - cafe-reformat-code.yml: google java format 자동 적용
@@ -146,7 +147,7 @@ docker-compose up
 ```
 1-2. 미리 빌드해둔 Jib 이미지로 실행
 ```
-docker-compose -f docker-compose-jib.yml up
+docker-compose -f docker-compose.jib.yml up
 ```
 1-3. 백엔드 서버 제외한 도커 실행 (백엔드 서버는 인텔리제이로 실행)
 ```

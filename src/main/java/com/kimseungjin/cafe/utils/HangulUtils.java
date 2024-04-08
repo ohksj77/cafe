@@ -1,5 +1,8 @@
 package com.kimseungjin.cafe.utils;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class HangulUtils {
 
     private static final char START_CHAR = '가';
@@ -20,7 +23,7 @@ public class HangulUtils {
     }
 
     private static char checkCharacter(final char ch) {
-        if (ch >= START_CHAR && ch <= LAST_CHAR) {
+        if (isHangul(ch)) {
             int base = (ch - START_CHAR);
             int cho = base / HANGUL_COUNT;
             return CHOSUNG[cho];
@@ -29,8 +32,12 @@ public class HangulUtils {
     }
 
     public static boolean isChosung(final String str) {
-        final int chosungCount = str.chars().filter(s -> !isHangul((char) s)).toArray().length;
+        final int chosungCount = str.chars().filter(s -> isChosung((char) s)).toArray().length;
         return chosungCount == str.length();
+    }
+
+    private static boolean isChosung(final char ch) {
+        return ch >= CHOSUNG[0] && ch <= CHOSUNG[CHOSUNG.length - 1];
     }
 
     public static boolean isHangul(final String str) {

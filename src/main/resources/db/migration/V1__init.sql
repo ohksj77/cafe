@@ -42,4 +42,4 @@ create index IDXrmeql25277vk6we3pnf5qqlb2
 
 CREATE INDEX idx_product_chosung ON product (chosung);
 
-CREATE FULLTEXT INDEX idx_product_name ON product (name);
+CREATE FULLTEXT INDEX idx_product_name ON product (name) with parser ngram;

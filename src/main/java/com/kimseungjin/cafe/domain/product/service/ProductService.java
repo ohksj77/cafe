@@ -10,6 +10,7 @@ import com.kimseungjin.cafe.domain.product.mapper.ProductMapper;
 import com.kimseungjin.cafe.domain.product.repository.ProductRepository;
 import com.kimseungjin.cafe.global.dto.IdResponse;
 import com.kimseungjin.cafe.global.exception.EntityNotFoundException;
+import com.kimseungjin.cafe.utils.ChosungParseUtils;
 import com.kimseungjin.cafe.utils.HangulUtils;
 import com.kimseungjin.cafe.utils.PageableUtils;
 
@@ -94,7 +95,7 @@ public class ProductService {
 
     private List<Product> getProducts(final UUID ownerId, final String query) {
         if (HangulUtils.isHangul(query)) {
-            return productRepository.findByOwnerIdAndNameContaining(ownerId, query).stream()
+            return productRepository.findByOwnerIdAndNameContaining(ownerId, ChosungParseUtils.parse(query)).stream()
                     .filter(product -> product.getName().contains(query))
                     .toList();
         }

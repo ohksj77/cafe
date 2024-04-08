@@ -1,5 +1,7 @@
 package com.kimseungjin.cafe.utils;
 
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -7,15 +9,12 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@RequiredArgsConstructor
 public class RedisBlackListUtils implements BlackListUtils {
 
     private static final long ACCESS_TOKEN_EXPIRE_HOUR = 1L;
     private static final String EMPTY_VALUE = "";
     private final RedisTemplate<String, String> redisBlackListTemplate;
-
-    public RedisBlackListUtils(final RedisTemplate<String, String> redisBlackListTemplate) {
-        this.redisBlackListTemplate = redisBlackListTemplate;
-    }
 
     @Override
     public void add(final String accessToken) {
