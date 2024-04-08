@@ -95,7 +95,9 @@ public class ProductService {
 
     private List<Product> getProducts(final UUID ownerId, final String query) {
         if (HangulUtils.isHangul(query)) {
-            return productRepository.findByOwnerIdAndNameContaining(ownerId, ChosungParseUtils.parse(query)).stream()
+            return productRepository
+                    .findByOwnerIdAndNameContaining(ownerId, ChosungParseUtils.parse(query))
+                    .stream()
                     .filter(product -> product.getName().contains(query))
                     .toList();
         }
